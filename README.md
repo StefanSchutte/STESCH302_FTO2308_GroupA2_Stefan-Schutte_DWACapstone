@@ -10,7 +10,9 @@ Author: Stefan Schutte
 
 Application: Podcast App
 
-Github Link: https://github.com/StefanSchutte/STESCH302_FTO2308_GroupA2_Stefan-Schutte_DWACapstone
+[Github Link](https://github.com/StefanSchutte/STESCH302_FTO2308_GroupA2_Stefan-Schutte_DWACapstone)
+
+[Deployed Site](https://podcasted-podcast-app.netlify.app/)
 
 ## Description:
 
@@ -92,7 +94,7 @@ Row below that.
 
 ## Deployment:
 The app is deployed to a custom Netlify URL, ensuring accessibility to users across various devices and platforms.
-LINKHERE
+Link: https://podcasted-podcast-app.netlify.app/
 
 ## Technologies used:
 - React
