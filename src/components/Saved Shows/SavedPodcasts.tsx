@@ -263,7 +263,7 @@ function SavedPodcasts(): JSX.Element {
                             className='border bg-black rounded m-4 flex justify-between items-center text-yellow-400 cursor-pointer'>
                             <div className="flex flex-col sm:flex-row items-center" onClick={() => openAudioPlayer(episode.id)}>
                                 <div>
-                                    <img src={episode.season_image} alt={episode.title} className='w-52 h-full ml-4 '/>
+                                    <img src={episode.season_image} alt={episode.title} className='w-52 h-full m-3 '/>
                                 </div>
                                 <div className="flex flex-col ml-6">
                                     <div className='font-bold m-3 underline'>{episode.season_title}</div>
@@ -282,7 +282,7 @@ function SavedPodcasts(): JSX.Element {
                                     </div>
                                 </div>
                             </div>
-                            <div className=' m-3'>
+                            <div className=' m-3 '>
                                 <div>
                                     <img src={shareFav} alt='Share' title='Share' className='w-14 h-14 m-2'
                                          onClick={() => generateShareUrl(episode)}/>
@@ -308,10 +308,10 @@ function SavedPodcasts(): JSX.Element {
                 <AudioPlayer
                     audioUrl={selectedEpisode.mp3_file}
                     onClose={() => setSelectedEpisodeForAudio(null)}
-                    userId={user?.id ?? ''} // Provide the user ID obtained from authentication
-                    episodeId={parseInt(selectedEpisode.id)}  // Provide the episode ID from the selected episode object
-                    showId={parseInt(selectedEpisode.season_id)} // Provide the show ID from the selected episode object
-                    seasonId={parseInt(selectedEpisode.season_id)} // Provide the season ID from the selected episode object
+                    userId={user?.id ?? ''}
+                    episodeId={parseInt(selectedEpisode.id)}
+                    showId={parseInt(selectedEpisode.season_id)}
+                    seasonId={parseInt(selectedEpisode.season_id)}
                     episodeTitle={selectedEpisode.title}
                 />
             )}

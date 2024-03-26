@@ -41,16 +41,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const { setShowAudioPlayer } = useAudioPlayer();
 
     /**
-     * Uses the 'useRef' hook to create a reference (audioRef) to the <audio> element.
-     * Used to interact with the audio element, such as controlling playback or accessing its properties.
-     */
-    // useEffect(() => {
-    //     if (audioRef.current && typeof episodeProgress === 'number' && isFinite(episodeProgress)) {
-    //         audioRef.current.currentTime = episodeProgress;
-    //     }
-    // }, [episodeProgress]);
-
-    /**
      * Sets up effects to synchronize the audio playback progress with the stored progress in local storage.
      * Runs when any of the dependencies [episodeId, seasonId, showId, userId] change.
      * Retrieves the stored progress for the current episode from local storage using a key constructed from the provided IDs.

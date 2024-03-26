@@ -55,10 +55,10 @@ const AudioPlayerComponent = () => {
         <AudioPlayer
             audioUrl={audioUrl}
             onClose={() => setShowAudioPlayer(false)}
-            episodeId={episodeId}  // Pass episodeId prop
-            showId={showId}  // Pass showId prop
-            seasonId={seasonId}  // Pass seasonId prop
-            episodeTitle={episodeTitle}  // Pass episodeTitle prop
+            episodeId={episodeId}
+            showId={showId}
+            seasonId={seasonId}
+            episodeTitle={episodeTitle}
             userId={userId}
         />
     ) : null;

@@ -2,7 +2,8 @@
 ### ( PODCASTED )
 
 #### developed by Stefan Schutte.
-STESCH302_FTO2308_GroupA2_Stefan-Schutte_-_DWA_18_Final_Capstone
+STESCH302_FTO2308_GroupA2_Stefan-Schutte_DWACapstone
+DWA_18_Final_Capstone
 
 This is Stefan Schutte's Podcast App.
 
@@ -210,7 +211,7 @@ Genre array IDs are assigned titles as follow:
 
 ✅ All favicon information has been created an added correctly via https://realfavicongenerator.net/ (you are welcome to use any free PNG image you find on https://www.flaticon.com/)
 
-? All metatag information has been created and added via https://metatags.io/ (You are welcome to use any free image on https://unsplash.com/). Be mindful to manually replace all URL values (especially image URL) to absolute Netlify URL values (you will need to deploy to Netlify first)
+✅ All metatag information has been created and added via https://metatags.io/ (You are welcome to use any free image on https://unsplash.com/). Be mindful to manually replace all URL values (especially image URL) to absolute Netlify URL values (you will need to deploy to Netlify first)
 
 ✅ All show data loaded via a fetch call from the https://podcast-api.netlify.app/shows
 
@@ -280,11 +281,11 @@ Genre array IDs are assigned titles as follow:
 
 ✅ Audio player shows current progress and episode length as timestamps
 
-✅ Audio player is always visible, so the user can listen to episodes while they browse
+ Audio player is always visible, so the user can listen to episodes while they browse
 
 ✅ User is prompted to confirm they want to close the page when audio is playing
 
- App remembers which show and episode the user listened to last when returning to the platform
+✅ App remembers which show and episode the user listened to last when returning to the platform
 
 ✅ App remembers which shows and episodes the user listened to all the way through
 
