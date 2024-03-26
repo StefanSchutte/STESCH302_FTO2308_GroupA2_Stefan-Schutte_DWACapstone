@@ -204,7 +204,7 @@ Genre array IDs are assigned titles as follow:
 
 ## User Stories:
 
-Project is deployed to a custom Netlify URL
+✅ Project is deployed to a custom Netlify URL
 
 ✅ All views in the app display correctly on the smallest mobile device available, “iPhone SE”. This can be emulated in Chrome Dev tools.
 
