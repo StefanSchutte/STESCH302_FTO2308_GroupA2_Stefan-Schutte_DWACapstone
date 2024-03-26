@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+body {
+background-color: #282828;
+    font-family: 'Kode Mono', sans-serif;
+}
