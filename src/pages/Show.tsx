@@ -215,9 +215,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
         setSelectedEpisode(episodeNumber);
 
         if (podcastData && selectedSeason !== null) {
-            const selectedEpisodeFile = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].file;
 
-            const selectedEpisodeId = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].id;
             const selectedShowId = item.id;
             const selectedSeasonId = selectedSeason;
             const selectedEpisodeTitle = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].title;
