@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useShows } from '../../services/ShowsContext.tsx';
-//import Show from "../Views/Show.tsx";
 import Genres from "../../helpers/Genres.tsx";
 import {Podcast} from "../../types.ts";
 import ShowPage from "../../pages/ShowPage.tsx";

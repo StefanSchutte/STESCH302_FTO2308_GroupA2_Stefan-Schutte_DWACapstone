@@ -64,7 +64,6 @@ export interface FavoriteData {
  */
 interface SeasonTitle {
     title: string;
-
 }
 
 /**

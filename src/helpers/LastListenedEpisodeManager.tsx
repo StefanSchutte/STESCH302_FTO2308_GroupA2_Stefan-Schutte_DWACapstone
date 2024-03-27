@@ -99,12 +99,13 @@ const LastListenedEpisodeManager: React.FC = () => {
     return (
         <>
             {showAudioPlayer && lastListenedUrl && (
-                <AudioPlayer audioUrl={lastListenedUrl} onClose={handleClose}
+                <AudioPlayer audioUrl={lastListenedUrl}
+                             onClose={handleClose}
                              userId={''} // Dummy value
-                                                 episodeId={0} // Dummy value
-                                                 showId={0} // Dummy value
-                                                 seasonId={0} // Dummy value
-                                                 episodeTitle="" // Dummy value
+                             episodeId={0} // Dummy value
+                             showId={0} // Dummy value
+                             seasonId={0} // Dummy value
+                             episodeTitle="" // Dummy value
                 />
             )}
         </>

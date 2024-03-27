@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Hero from '../components/Hero/Hero';
 import Row from '../components/Views/Row';
-//import Show from '../components/Views/Show.tsx';
 import { useShows } from "../services/ShowsContext.tsx";
 import {Podcast} from "../types.ts";
 import ShowPage from "./ShowPage.tsx";
