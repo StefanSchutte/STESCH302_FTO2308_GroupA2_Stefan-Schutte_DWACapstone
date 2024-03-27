@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import PlayButton from '../audio/PlayButton.tsx'
 import Genres from "../../helpers/Genres.tsx";
 import supabase from "../../supabase.ts";
 import {useAuth} from "../../services/AuthContext.tsx";
@@ -10,6 +9,7 @@ import {Podcast} from '../../types.ts'
 import seeMoreFav from '/seeMore.png';
 import saveBtnFav from "/save.png";
 import closeFav from "/close.png";
+import AudioPlayer from "../audio/AudioPlayer.tsx";
 
 /**
  * Show component to display detailed information about a podcast.
@@ -67,7 +67,7 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
      * Hook used to access audio player functionalities within the component.
      * Integrate audio playback features into the component without passing props explicitly.
      */
-    const { setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
+    const { showAudioPlayer, setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
 
     /**
      * Fetches podcast data from api and sets it in the state.
@@ -201,6 +201,8 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
         if (podcastData && selectedSeason !== null) {
             const selectedEpisodeFile = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].file;
             setAudioUrl(selectedEpisodeFile);
+            // Show the audio player automatically
+            setShowAudioPlayer(true);
         }
     };
 
@@ -244,8 +246,9 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
      */
     const handleCloseOverlay = () => {
         closeOverlay();
-
     };
+
+
 
     return (
             <>
@@ -391,8 +394,8 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {showOverlay &&  selectedSeason && selectedEpisode &&
-                                            <PlayButton
+                                        {showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&
+                                            <AudioPlayer
                                                 audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}
                                                 showId={parseInt(item.id)}
                                                 episodeId={selectedEpisode}
@@ -401,6 +404,7 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
                                                 setAudioUrl={setAudioUrl}
                                                 episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}
                                                 userId={user}
+                                                onClose={() => setShowAudioPlayer(false)}
                                             />
                                         }
                                     </div>

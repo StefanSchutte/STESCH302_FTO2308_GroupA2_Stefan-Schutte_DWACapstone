@@ -1,4 +1,4 @@
-import SavedPodcasts from '../components/Saved Shows/SavedPodcasts';
+import Favorites from '../components/Saved Shows/Favorites.tsx';
 
 /**
  * Image used as a background image for the account page.
@@ -13,7 +13,7 @@ function Account() {
                 <img className='absolute w-full h-full object-cover' src={accountImage} alt='/'/>
                 <div className='bg-black/60 fixed top-0 left-0 w-full h-full'>
                     <div className='absolute top-[20%] p-4 md:p-8'></div>
-                    <SavedPodcasts/>
+                    <Favorites/>
                 </div>
 
             </div>

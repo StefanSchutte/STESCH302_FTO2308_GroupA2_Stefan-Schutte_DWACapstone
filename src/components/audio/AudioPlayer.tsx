@@ -94,6 +94,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         }
     };
 
+
+
     /**
      * Called when the audio playback ends.
      * Sets the 'isEpisodeCompleted' state to true, indicating that the current episode has been completed.

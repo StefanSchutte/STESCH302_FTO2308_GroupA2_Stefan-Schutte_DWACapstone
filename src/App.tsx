@@ -8,7 +8,7 @@ import Account from "./pages/Account.tsx";
 import Filters from "./pages/Filters.tsx";
 import ProtectedRoute from "./components/Protected Route/ProtectedRoute.tsx";
 import {AudioPlayerProvider, useAudioPlayer} from "./services/AudioPlayerContext.tsx";
-import SharedPodcast from "./components/Saved Shows/SharedPodcast.tsx";
+import SharedFavorites from "./components/Saved Shows/SharedFavorites.tsx";
 import AudioPlayer from "./components/audio/AudioPlayer.tsx";
 import LastListenedEpisodeManager from './helpers/LastListenedEpisodeManager.tsx';
 
@@ -32,7 +32,7 @@ function App(): JSX.Element {
                           <Route path='/login' element={<Login />} />
                           <Route path='/signup' element={<Signup />} />
                           <Route path='/account' element={<ProtectedRoute>{() => <Account />}</ProtectedRoute>} />
-                          <Route path="/shared-favorites/:userId/:episodeId" element={<SharedPodcast />} />
+                          <Route path="/shared-favorites/:userId/:episodeId" element={<SharedFavorites />} />
                       </Routes>
                       <AudioPlayerComponent />
                       <LastListenedEpisodeManager />

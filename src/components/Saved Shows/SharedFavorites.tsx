@@ -18,7 +18,7 @@ interface Episode {
  * Fetches episodes from the database based on the user ID provided in the route parameters.
  * Renders a list of episodes with their details.
  */
-function SharedPodcast() {
+function SharedFavorites() {
     /**
      * State Initialization:
      * Uses useParams to retrieve the userId from the route parameters.
@@ -124,4 +124,4 @@ function SharedPodcast() {
     );
 }
 
-export default SharedPodcast;
+export default SharedFavorites;

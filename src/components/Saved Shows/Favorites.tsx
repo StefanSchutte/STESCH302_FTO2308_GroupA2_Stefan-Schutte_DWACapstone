@@ -19,7 +19,7 @@ import {FavoriteData, Podcast, PodcastFavorite} from "../../types.ts";
  * 'selectedEpisodeForAudio': Keeps track of the selected episode's audio file for audio playback.
  * 'shareUrl': Stores the URL generated for sharing a podcast episode.
  */
-function SavedPodcasts(): JSX.Element {
+function Favorites(): JSX.Element {
     const [favorites, setFavorites] = useState<PodcastFavorite[]>([]);
     const { user } = useAuth();
     const [selectedEpisode, setSelectedEpisode] = useState<PodcastFavorite | null>(null);
@@ -319,4 +319,4 @@ function SavedPodcasts(): JSX.Element {
     );
 }
 
-export default SavedPodcasts;
+export default Favorites;
