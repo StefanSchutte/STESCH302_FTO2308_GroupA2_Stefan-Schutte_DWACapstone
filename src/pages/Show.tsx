@@ -4,7 +4,7 @@ import supabase from "../supabase.ts";
 import { useAuth } from '../services/AuthContext.tsx'
 import {getShowDetailFromApi} from "../api/API.ts";
 import { useAudioPlayer } from "../services/AudioPlayerContext.tsx";
-import {OverlayProps} from "../types.ts";
+//import {OverlayProps} from "../types.ts";
 import {Podcast} from '../types.ts'
 import seeMoreFav from '/seeMore.png';
 import saveBtnFav from "/save.png";
@@ -20,7 +20,7 @@ import AudioPlayer from "../components/audio/AudioPlayer.tsx";
  * State Initialization.
  * Initialized using the useState hook:
  */
-const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
+const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
     /**
      * Holds podcast-related data fetched asynchronously.
      *  Gets updated when podcast data is fetched from the API and set using the setPodcastData function.
@@ -227,7 +227,7 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
             setShowAudioPlayer(true);
 
             setEpisodeId(selectedEpisodeId);
-            setShowId(selectedShowId);
+            setShowId(parseInt(selectedShowId));
             setSeasonId(selectedSeasonId);
             setEpisodeTitle(selectedEpisodeTitle);
         }
@@ -433,11 +433,11 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
                                                 audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}
                                                 showId={parseInt(item.id)}
                                                 episodeId={selectedEpisode}
-                                                seasonId={{selectedSeason}}
+                                                seasonId={selectedSeason}
                                                 setShowAudioPlayer={setShowAudioPlayer}
                                                 setAudioUrl={setAudioUrl}
                                                 episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}
-                                                userId={user}
+                                                userId={user ? user.id : ''}
                                                 onClose={() => setShowAudioPlayer(false)}
                                             />
                                         }

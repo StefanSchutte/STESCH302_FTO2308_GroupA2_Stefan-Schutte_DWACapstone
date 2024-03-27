@@ -71,17 +71,17 @@ interface SeasonTitle {
  * a callback to close the overlay, and an optional callback for saving episodes.
  * Provides a consistent interface for passing data and functions to the overlay component, ensuring interoperability and ease of use.
  */
-export interface OverlayProps {
-    item: {
-        id: string,
-        image: string;
-        title: string;
-        updated: string;
-        description: string;
-        genres: string;
-        seasons: number;
-    };
-    showOverlay: boolean;
-    closeOverlay: () => void;
-    onSave?: (episodeId: string, seasonId: string | null) => void;
-}
+// export interface OverlayProps {
+//     item: {
+//         id: string,
+//         image: string;
+//         title: string;
+//         updated: string;
+//         description: string;
+//         genres: string;
+//         seasons: number;
+//     };
+//     showOverlay: boolean;
+//     closeOverlay: () => void;
+//     onSave?: (episodeId: string, seasonId: string | null) => void;
+// }

@@ -4,20 +4,21 @@ interface AudioPlayerProviderProps {
     children: ReactNode;
 }
 
-interface AudioPlayerContextProps {
-    showAudioPlayer: boolean;
-    setShowAudioPlayer: (show: boolean) => void;
-    audioUrl: string;
-    setAudioUrl: (url: string) => void;
-    episodeId: number | null;
-    setEpisodeId: (id: number | null) => void;
-    showId: number | null;
-    setShowId: (id: number | null) => void;
-    seasonId: number | null;
-    setSeasonId: (id: number | null) => void;
-    episodeTitle: string | null;
-    setEpisodeTitle: (title: string | null) => void;
-}
+// interface AudioPlayerContextProps {
+//     showAudioPlayer: boolean;
+//     setShowAudioPlayer: (show: boolean) => void;
+//     audioUrl: string;
+//     setAudioUrl: (url: string) => void;
+//     episodeId: number | null;
+//     setEpisodeId: (id: number | null) => void;
+//     showId: number | null;
+//     setShowId: (id: number | null) => void;
+//     seasonId: number | null;
+//     setSeasonId: (id: number | null) => void;
+//     episodeTitle: string | null;
+//     setEpisodeTitle: (title: string | null) => void;
+//     userId: string;
+// }
 
 /**
  *  Create the context.
@@ -25,7 +26,7 @@ interface AudioPlayerContextProps {
  *  Context is primarily used for providing a custom hook.
  */
 //const AudioPlayerContext = createContext<any>(null);
-const AudioPlayerContext = createContext<AudioPlayerContextProps>({
+const AudioPlayerContext = createContext<any>({
     showAudioPlayer: false,
     setShowAudioPlayer: () => {},
     audioUrl: '',

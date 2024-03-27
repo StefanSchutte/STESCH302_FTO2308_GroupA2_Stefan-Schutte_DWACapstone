@@ -13,6 +13,9 @@ interface AudioPlayerProps {
     showId: number;
     seasonId: number;
     episodeTitle: string;
+    setShowAudioPlayer: (show: boolean) => void;
+    setAudioUrl: (url: string) => void;
+
 }
 
 /**

@@ -263,9 +263,9 @@ function Favorites(): JSX.Element {
                             className='border bg-black rounded m-4 flex justify-between items-center text-yellow-400 cursor-pointer'>
                             <div className="flex flex-col sm:flex-row items-center" onClick={() => openAudioPlayer(episode.id)}>
                                 <div>
-                                    <img src={episode.season_image} alt={episode.title} className='w-52 h-full m-3 '/>
+                                    <img src={episode.season_image} alt={episode.title} className='w-44 h-full m-3 '/>
                                 </div>
-                                <div className="flex flex-col ml-6 text-sm md:text-base lg:text-lg xl:text-xl">
+                                <div className="flex flex-col ml-6 text-sm md:text-base lg:text-lg xl:text-lg">
                                     <div className='font-bold m-3 underline'>{episode.season_title}</div>
                                     <div className=' flex items-center m-2'>
                                         <p className='text-gray-500 pr-4'>Episode:</p>
@@ -313,6 +313,8 @@ function Favorites(): JSX.Element {
                     showId={parseInt(selectedEpisode.season_id)}
                     seasonId={parseInt(selectedEpisode.season_id)}
                     episodeTitle={selectedEpisode.title}
+                    setShowAudioPlayer={() => {}}
+                    setAudioUrl={() => {}}
                 />
             )}
         </>

@@ -10,7 +10,6 @@ import ProtectedRoute from "./components/Protected Route/ProtectedRoute.tsx";
 import {AudioPlayerProvider, useAudioPlayer} from "./services/AudioPlayerContext.tsx";
 import SharedFavorites from "./components/Saved Shows/SharedFavorites.tsx";
 import AudioPlayer from "./components/audio/AudioPlayer.tsx";
-import LastListenedEpisodeManager from './helpers/LastListenedEpisodeManager.tsx';
 import Show from "./pages/Show.tsx";
 
 /**
@@ -52,7 +51,7 @@ function App(): JSX.Element {
  * It renders the AudioPlayer component with the provided audioUrl and an onClose callback to toggle the showAudioPlayer state to false.
  */
 const AudioPlayerComponent = () => {
-    const { showAudioPlayer, setShowAudioPlayer, audioUrl,userId, episodeId, showId, seasonId, episodeTitle } = useAudioPlayer();
+    const { showAudioPlayer, setShowAudioPlayer, audioUrl, userId, episodeId, showId, seasonId, episodeTitle } = useAudioPlayer();
 
 
     return showAudioPlayer ? (
@@ -64,6 +63,8 @@ const AudioPlayerComponent = () => {
             seasonId={seasonId}
             episodeTitle={episodeTitle}
             userId={userId}
+            setShowAudioPlayer={setShowAudioPlayer}
+            setAudioUrl={() => {}}
         />
     ) : null;
 };
