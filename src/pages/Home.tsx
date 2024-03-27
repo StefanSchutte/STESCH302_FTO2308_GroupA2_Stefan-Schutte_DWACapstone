@@ -3,7 +3,7 @@ import Hero from '../components/Hero/Hero';
 import Row from '../components/Views/Row';
 import { useShows } from "../services/ShowsContext.tsx";
 import {Podcast} from "../types.ts";
-import ShowPage from "./ShowPage.tsx";
+import Show from "./Show.tsx";
 /**
  * Home component representing the main page of the application.
  */
@@ -48,7 +48,7 @@ function Home(): JSX.Element {
             />
             <div className="h-32"></div>
             {showOverlay && selectedPodcast &&
-                <ShowPage
+                <Show
                     item={selectedPodcast}
                     showOverlay={showOverlay}
                     closeOverlay={closeOverlay}

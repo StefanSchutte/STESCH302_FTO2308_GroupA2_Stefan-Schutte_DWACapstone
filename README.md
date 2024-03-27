@@ -154,12 +154,7 @@ Link: https://podcasted-podcast-app.netlify.app/
 - 'Genre' inside 'Preview' is an array of numbers called the id.
 - 'Genre' inside 'Show' is an array of strings called title.
 
-##### Entity Relationship Mapping
-gecopy
-Note that the text between the units indicates what properties map to one another. It is separated using three underscores (___). The value before the underscores is the mapping from the parent object, whereas the values after the underscore are the mapping from the child object.
-PLEASE NOTE: In some cases, there is no way to infer the parent from the child itself; in those cases, just the parent map is noted, with no value after the underscores.
-![img.png](img.png)
-[Mermaid.js Docs](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+
 ### Genre Mapping:
 Genre array IDs are assigned titles as follow:
 - 1 -	Personal Growth

@@ -11,7 +11,7 @@ import {AudioPlayerProvider, useAudioPlayer} from "./services/AudioPlayerContext
 import SharedFavorites from "./components/Saved Shows/SharedFavorites.tsx";
 import AudioPlayer from "./components/audio/AudioPlayer.tsx";
 import LastListenedEpisodeManager from './helpers/LastListenedEpisodeManager.tsx';
-import ShowPage from "./pages/ShowPage.tsx";
+import Show from "./pages/Show.tsx";
 
 /**
  * Main application component.
@@ -34,10 +34,11 @@ function App(): JSX.Element {
                           <Route path='/signup' element={<Signup />} />
                           <Route path='/account' element={<ProtectedRoute>{() => <Account />}</ProtectedRoute>} />
                           <Route path="/shared-favorites/:userId/:episodeId" element={<SharedFavorites />} />
-                          <Route path="/show/:id" element={<ShowPage />} />
+                          <Route path="/show/:id" element={<Show />} />
                       </Routes>
+
                       <AudioPlayerComponent />
-                      <LastListenedEpisodeManager />
+                      {/*<LastListenedEpisodeManager />*/}
                   </AudioPlayerProvider>
               </AuthContextProvider>
           </>

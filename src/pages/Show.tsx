@@ -20,7 +20,7 @@ import AudioPlayer from "../components/audio/AudioPlayer.tsx";
  * State Initialization.
  * Initialized using the useState hook:
  */
-const ShowPage: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
+const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
     /**
      * Holds podcast-related data fetched asynchronously.
      *  Gets updated when podcast data is fetched from the API and set using the setPodcastData function.
@@ -455,4 +455,4 @@ const ShowPage: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) =>
     );
 };
 
-export default ShowPage;
+export default Show;
