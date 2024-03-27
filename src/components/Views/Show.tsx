@@ -68,7 +68,7 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
      * Integrate audio playback features into the component without passing props explicitly.
      */
     const { showAudioPlayer, setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
-
+    const [showSavedPopup, setShowSavedPopup] = useState(false);
     /**
      * Fetches podcast data from api and sets it in the state.
      * Manages the body overflow and fetches podcast data based on changes in item and showOverlay.
@@ -176,7 +176,23 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
                 return;
             }
         }
+        toggleSavedPopup();
     };
+
+    const toggleSavedPopup = () => {
+        setShowSavedPopup(!showSavedPopup);
+    };
+
+    useEffect(() => {
+        if (showSavedPopup) {
+            const timeoutId = setTimeout(() => {
+                toggleSavedPopup(); // Hide the popup after 3 seconds
+            }, 3000);
+
+            // Cleanup function to clear the timeout if the component unmounts or if the popup is hidden manually
+            return () => clearTimeout(timeoutId);
+        }
+    }, [showSavedPopup]);
 
     /**
      * Handles the selection of a season.
@@ -392,6 +408,13 @@ const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
                                                         ))}
                                                     </ul>
                                                 </div>
+                                                {showSavedPopup && (
+                                                    <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center z-[110]">
+                                                        <div className="bg-gray-500 p-4 rounded-lg border border-gray-300">
+                                                            <p className="text-yellow-400 font-bold">Saved to favorites!</p>
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </div>
                                         {showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&
