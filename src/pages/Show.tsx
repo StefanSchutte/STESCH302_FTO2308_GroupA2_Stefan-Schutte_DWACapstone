@@ -9,7 +9,7 @@ import {Podcast} from '../types.ts'
 import seeMoreFav from '/seeMore.png';
 import saveBtnFav from "/save.png";
 import closeFav from "/close.png";
-import AudioPlayer from "../components/audio/AudioPlayer.tsx";
+//import AudioPlayer from "../components/audio/AudioPlayer.tsx";
 
 /**
  * Show component to display detailed information about a podcast.
@@ -68,7 +68,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      * Integrate audio playback features into the component without passing props explicitly.
      */
         //const { showAudioPlayer, setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
-    const { showAudioPlayer, setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
+    const { showAudioPlayer, setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle, initialTimestamp, setInitialTimestamp } = useAudioPlayer();
     const [showSavedPopup, setShowSavedPopup] = useState(false);
     /**
      * Fetches podcast data from api and sets it in the state.
@@ -221,15 +221,17 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
             const selectedShowId = item.id;
             const selectedSeasonId = selectedSeason;
             const selectedEpisodeTitle = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].title;
-
+            const selectedEpisodeFile = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].file;
+            const selectedEpisodeId = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].id;
             setAudioUrl(selectedEpisodeFile);
-            // Show the audio player automatically
-            setShowAudioPlayer(true);
+
 
             setEpisodeId(selectedEpisodeId);
             setShowId(parseInt(selectedShowId));
             setSeasonId(selectedSeasonId);
             setEpisodeTitle(selectedEpisodeTitle);
+            // Show the audio player automatically
+            setShowAudioPlayer(true);
         }
     };
 
@@ -275,11 +277,20 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
         closeOverlay();
     };
 
-
+    // useEffect(() => {
+    //     console.log("Initial timestamp:", initialTimestamp);
+    //     // Set the initial playback position if there's a stored timestamp
+    //     if (showAudioPlayer && initialTimestamp !== null) {
+    //         const audioElement = document.getElementById('audio-player') as HTMLAudioElement;
+    //         if (audioElement) {
+    //             audioElement.currentTime = initialTimestamp;
+    //         }
+    //     }
+    // }, [showAudioPlayer, initialTimestamp]);
 
     return (
         <>
-            <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80 z-[90] overflow-hidden">
+            <div className="fixed top-0 left-0 w-full h-[85vh] flex items-center justify-center bg-black bg-opacity-80 z-[90] overflow-hidden">
                 <div className="text-yellow-400 bg-black bg-opacity-0 z-[100] rounded-lg overflow-hidden">
                     <div className="w-[90vw] h-[60vh] bg-cover bg-center rounded-t-lg" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
                         <div className="p-4 m-4 rounded-lg max-w-screen h-full overflow-auto scrollbar-hide">
@@ -428,19 +439,19 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
                                                 )}
                                             </div>
                                         </div>
-                                        {showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&
-                                            <AudioPlayer
-                                                audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}
-                                                showId={parseInt(item.id)}
-                                                episodeId={selectedEpisode}
-                                                seasonId={selectedSeason}
-                                                setShowAudioPlayer={setShowAudioPlayer}
-                                                setAudioUrl={setAudioUrl}
-                                                episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}
-                                                userId={user ? user.id : ''}
-                                                onClose={() => setShowAudioPlayer(false)}
-                                            />
-                                        }
+                                        {/*{showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&*/}
+                                        {/*    <AudioPlayer*/}
+                                        {/*        audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}*/}
+                                        {/*        showId={parseInt(item.id)}*/}
+                                        {/*        episodeId={selectedEpisode}*/}
+                                        {/*        seasonId={selectedSeason}*/}
+                                        {/*        setShowAudioPlayer={setShowAudioPlayer}*/}
+                                        {/*        setAudioUrl={setAudioUrl}*/}
+                                        {/*        episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}*/}
+                                        {/*        userId={user ? user.id : ''}*/}
+                                        {/*        onClose={() => setShowAudioPlayer(false)}*/}
+                                        {/*    />*/}
+                                        {/*}*/}
                                     </div>
                                 )
                             )}

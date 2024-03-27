@@ -39,6 +39,8 @@ const AudioPlayerContext = createContext<any>({
     setSeasonId: () => {},
     episodeTitle: null,
     setEpisodeTitle: () => {},
+    setInitialTimestamp: () => {},
+    initialTimestamp:  () => {},
 });
 
 /**
@@ -68,6 +70,7 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     const [showId, setShowId] = useState<number | null>(null);
     const [seasonId, setSeasonId] = useState<number | null>(null);
     const [episodeTitle, setEpisodeTitle] = useState<string | null>(null);
+    const [initialTimestamp, setInitialTimestamp] = useState<any | null>(null);
 
     /**
      * Function to toggle the audio player visibility.
@@ -91,6 +94,8 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
             setSeasonId,
             episodeTitle,
             setEpisodeTitle,
+            initialTimestamp,
+            setInitialTimestamp
         }}>
             {children}
         </AudioPlayerContext.Provider>

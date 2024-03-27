@@ -15,6 +15,7 @@ interface AudioPlayerProps {
     episodeTitle: string;
     setShowAudioPlayer: (show: boolean) => void;
     setAudioUrl: (url: string) => void;
+    initialTimestamp: number | null;
 
 }
 
@@ -97,7 +98,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         }
     };
 
-
+//
+    // useEffect(() => {
+    //     if (audioRef.current && initialTimestamp !== null) {
+    //         audioRef.current.currentTime = initialTimestamp;
+    //     }
+    // }, [initialTimestamp]);
 
     /**
      * Called when the audio playback ends.

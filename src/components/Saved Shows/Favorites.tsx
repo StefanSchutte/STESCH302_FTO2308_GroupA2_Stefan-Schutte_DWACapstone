@@ -6,6 +6,7 @@ import AudioPlayer from "../audio/AudioPlayer.tsx";
 import removeFav from '/remove.png';
 import shareFav from '/share.png';
 import {FavoriteData, Podcast, PodcastFavorite} from "../../types.ts";
+import { useAudioPlayer } from "../../services/AudioPlayerContext.tsx";
 
 /**
  * Functional component representing the saved podcasts section.
@@ -26,7 +27,7 @@ function Favorites(): JSX.Element {
     const [podcastData, setPodcastData] = useState<Podcast | null>(null);
     const [selectedEpisodeForAudio, setSelectedEpisodeForAudio] = useState<string | null>(null);
     const [shareUrl, setShareUrl] = useState<string>('');
-
+    const { setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle, setInitialTimestamp } = useAudioPlayer();
     /**
      * Fetch the user's favorite podcasts from the database whenever the user object changes.
      * This ensures that the component updates its state when the user logs in or out.
@@ -205,8 +206,14 @@ function Favorites(): JSX.Element {
     const openAudioPlayer = (episodeId: string) => {
         const selectedEpisode = favorites.find(episode => episode.id === episodeId);
         if (selectedEpisode) {
-            setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
-
+            // setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
+            setShowAudioPlayer(true);
+            setAudioUrl(selectedEpisode.mp3_file);
+            setEpisodeId(parseInt(episodeId));
+            setShowId(parseInt(selectedEpisode.season_id));
+            setSeasonId(parseInt(selectedEpisode.season_id));
+            setEpisodeTitle(selectedEpisode.title);
+            setInitialTimestamp(0);
         } else {
             console.error('Error: Episode not found with ID:', episodeId);
         }
@@ -304,19 +311,19 @@ function Favorites(): JSX.Element {
                     ))}
                 </ul>
             </div>
-            {selectedEpisodeForAudio && selectedEpisode && (
-                <AudioPlayer
-                    audioUrl={selectedEpisode.mp3_file}
-                    onClose={() => setSelectedEpisodeForAudio(null)}
-                    userId={user?.id ?? ''}
-                    episodeId={parseInt(selectedEpisode.id)}
-                    showId={parseInt(selectedEpisode.season_id)}
-                    seasonId={parseInt(selectedEpisode.season_id)}
-                    episodeTitle={selectedEpisode.title}
-                    setShowAudioPlayer={() => {}}
-                    setAudioUrl={() => {}}
-                />
-            )}
+            {/*{selectedEpisodeForAudio && selectedEpisode && (*/}
+            {/*    <AudioPlayer*/}
+            {/*        audioUrl={selectedEpisode.mp3_file}*/}
+            {/*        onClose={() => setSelectedEpisodeForAudio(null)}*/}
+            {/*        userId={user?.id ?? ''}*/}
+            {/*        episodeId={parseInt(selectedEpisode.id)}*/}
+            {/*        showId={parseInt(selectedEpisode.season_id)}*/}
+            {/*        seasonId={parseInt(selectedEpisode.season_id)}*/}
+            {/*        episodeTitle={selectedEpisode.title}*/}
+            {/*        setShowAudioPlayer={() => {}}*/}
+            {/*        setAudioUrl={() => {}}*/}
+            {/*    />*/}
+            {/*)}*/}
         </>
     );
 }

@@ -11,6 +11,7 @@ import {AudioPlayerProvider, useAudioPlayer} from "./services/AudioPlayerContext
 import SharedFavorites from "./components/Saved Shows/SharedFavorites.tsx";
 import AudioPlayer from "./components/audio/AudioPlayer.tsx";
 import Show from "./pages/Show.tsx";
+import {useEffect, useState} from "react";
 
 /**
  * Main application component.
@@ -20,7 +21,22 @@ import Show from "./pages/Show.tsx";
  * ProtectedRoute component is used for the '/account' route, ensuring that the Account component is only accessible to authenticated users.
  */
 function App(): JSX.Element {
+    const { setShowAudioPlayer } = useAudioPlayer();
+    const [lastListenedEpisode, setLastListenedEpisode] = useState<{
+        audioUrl: string;
+        progress: number;
+    } | null>(null);
 
+    // useEffect(() => {
+    //     const lastListenedUrl = localStorage.getItem('last_listened_url');
+    //     const lastPlaybackPosition = localStorage.getItem('last_playback_position');
+    //
+    //     if (lastListenedUrl && lastPlaybackPosition) {
+    //         const progress = parseFloat(lastPlaybackPosition);
+    //         setLastListenedEpisode({ audioUrl: lastListenedUrl, progress });
+    //         setShowAudioPlayer(true);
+    //     }
+    // }, [setShowAudioPlayer]);
     return (
           <>
               <AuthContextProvider>
