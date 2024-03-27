@@ -288,9 +288,9 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
 
     return (
         <>
-            <div className="fixed top-0 left-0 w-full h-[85vh] flex items-center justify-center bg-black bg-opacity-80 z-[90] overflow-hidden">
+            <div className="fixed top-0 left-0 w-full h-[75vh] flex items-center justify-center z-[90] overflow-hidden">
                 <div className="text-yellow-400 bg-black bg-opacity-0 z-[100] rounded-lg overflow-hidden">
-                    <div className="w-[90vw] h-[60vh] bg-cover bg-center rounded-t-lg" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
+                    <div className="w-[90vw] h-[60vh] border border-purple-300 bg-cover bg-center rounded-t-lg" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
                         <div className="p-4 m-4 rounded-lg max-w-screen h-full overflow-auto scrollbar-hide">
                             <div className="flex items-center flex-col mb-4 sm:flex-row sm:items-center sm:justify-start">
                                 <div className="mr-4">
@@ -454,7 +454,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
                                 )
                             )}
                             <button className="absolute top-4 right-4 " onClick={handleCloseOverlay}>
-                                <img src={closeFav} alt="close" className='w-15 h-15 ml-2' title='CLose'/>
+                                <img src={closeFav} alt="close" className='w-15 h-15 ml-2 border-2 border-purple-300 rounded-full' title='CLose'/>
                             </button>
                         </div>
                     </div>
