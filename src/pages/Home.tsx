@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Hero from '../components/Hero/Hero';
 import Row from '../components/Views/Row';
-import PodcastInfo from '../components/Views/PodcastInfo.tsx';
+import Show from '../components/Views/Show.tsx';
 import { useShows } from "../services/ShowsContext.tsx";
 import {Podcast} from "../types.ts";
 
@@ -40,19 +40,21 @@ function Home(): JSX.Element {
 
     return (
         <div>
-            <Hero />
+            <Hero/>
             <Row
                 rowId="all-shows"
                 title="Browse All Shows"
                 podcasts={podcasts}
                 openOverlay={openOverlay}
             />
+            <div className="h-32"></div>
             {showOverlay && selectedPodcast &&
-                <PodcastInfo
+                <Show
                     item={selectedPodcast}
                     showOverlay={showOverlay}
                     closeOverlay={closeOverlay}
                 />}
+
         </div>
     );
 }

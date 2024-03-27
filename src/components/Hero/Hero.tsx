@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useShows } from '../../services/ShowsContext.tsx';
-import PodcastInfo from "../Views/PodcastInfo.tsx";
+import Show from "../Views/Show.tsx";
 import Genres from "../../helpers/Genres.tsx";
 import {Podcast} from "../../types.ts";
 
@@ -78,7 +78,7 @@ function Hero(): JSX.Element {
                     </p>
                 </div>
             </div>
-            {showOverlay && podcast && <PodcastInfo item={podcast} showOverlay={showOverlay} closeOverlay={closeOverlay} />}
+            {showOverlay && podcast && <Show item={podcast} showOverlay={showOverlay} closeOverlay={closeOverlay} />}
         </div>
     );
 }

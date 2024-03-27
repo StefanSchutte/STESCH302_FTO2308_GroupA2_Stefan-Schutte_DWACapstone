@@ -12,15 +12,15 @@ import saveBtnFav from "/save.png";
 import closeFav from "/close.png";
 
 /**
- * PodcastInfo component to display detailed information about a podcast.
- * The PodcastInfo component is a functional component that takes OverlayProps as its props.
+ * Show component to display detailed information about a podcast.
+ * The Show component is a functional component that takes OverlayProps as its props.
  * item - The podcast item containing details.
  * showOverlay - Boolean to control the visibility of the overlay.
  * closeOverlay - Function to close the overlay.
  * State Initialization.
  * Initialized using the useState hook:
  */
-const PodcastInfo: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
+const Show: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay}) => {
     /**
      * Holds podcast-related data fetched asynchronously.
      *  Gets updated when podcast data is fetched from the API and set using the setPodcastData function.
@@ -240,24 +240,18 @@ const PodcastInfo: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay})
     };
 
     /**
-     * Conditional rendering of the overlay based on the visibility flag.(showOverlay)
-     * Renders the podcast details, loading indicator, season/episode selectors, and a button to close the overlay.
-     * Render loading spinner if data is loading.
-     */
-    if (!showOverlay) return null;
-
-    /**
      * Close the overlay.
      */
     const handleCloseOverlay = () => {
         closeOverlay();
+
     };
 
     return (
             <>
                 <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-80 z-[90] overflow-hidden">
                     <div className="text-yellow-400 bg-black bg-opacity-0 z-[100] rounded-lg overflow-hidden">
-                        <div className="w-[90vw] h-[70vh] bg-cover bg-center rounded-t-lg" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
+                        <div className="w-[90vw] h-[60vh] bg-cover bg-center rounded-t-lg" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
                             <div className="p-4 m-4 rounded-lg max-w-screen h-full overflow-auto scrollbar-hide">
                                 <div className="flex items-center flex-col mb-4 sm:flex-row sm:items-center sm:justify-start">
                                     <div className="mr-4">
@@ -423,4 +417,4 @@ const PodcastInfo: React.FC<OverlayProps> = ({ item, showOverlay, closeOverlay})
     );
 };
 
-export default PodcastInfo;
+export default Show;

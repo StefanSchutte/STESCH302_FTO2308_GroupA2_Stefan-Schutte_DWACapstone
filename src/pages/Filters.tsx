@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
-import PodcastInfo from '../components/Views/PodcastInfo.tsx'
+import Show from '../components/Views/Show.tsx'
 import { useShows } from "../services/ShowsContext.tsx";
 import Genres from "../helpers/Genres.tsx";
 import {Podcast} from "../types.ts";
@@ -195,7 +195,7 @@ const Filters: React.FC = () => {
                                             />
                                         </div>
                                         <div className="col-span-2 flex flex-col justify-between">
-                                            <div className='text-base sm:text-lg md:text-xl xs:text-xs '>
+                                            <div className='text-sm md:text-base lg:text-lg xl:text-xl'>
                                             <div className="flex items-center font-bold">
                                                 <h1 className='text-amber-50 pr-4'>Title:</h1>
                                                 <div >{show.title}</div>
@@ -227,7 +227,7 @@ const Filters: React.FC = () => {
                     </ul>
                 </div>
                 {selectedPodcast && (
-                <PodcastInfo
+                <Show
                     item={selectedPodcast}
                     showOverlay={true}
                     closeOverlay={closeOverlay} />

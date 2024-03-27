@@ -52,7 +52,7 @@ function Navbar(): JSX.Element {
      * Contains navigation links and icons.
      */
     return (
-        <div className="flex items-center justify-between p-1 z-[80] w-full absolute brightness-20 bg-gray-600 rounded">
+        <div className="flex items-center justify-between p-1 z-[80] w-full absolute brightness-20 bg-gray-700 rounded">
             <Link to="/">
                     <div className='flex '>
                         <img src={homeLogo} alt="home" className='w-12 h-12 ml-5' title='Home'/>

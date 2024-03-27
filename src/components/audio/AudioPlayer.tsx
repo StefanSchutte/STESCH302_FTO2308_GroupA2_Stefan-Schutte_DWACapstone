@@ -4,7 +4,6 @@ import completedFav from'/checklist.png'
 import incompletedFav from '/incomplete.png'
 import removeFav from "/remove.png";
 import {useAudioPlayer} from "../../services/AudioPlayerContext.tsx";
-import seeMoreFav from "/seeMore.png";
 
 interface AudioPlayerProps {
     audioUrl: string;
@@ -174,11 +173,33 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      * The audioUrl is used as the source for the audio element.
      */
     return (
-        <div className=''>
+        <div className='flex items-center justify-between'>
+
             <div
-                className="fixed bottom-0 left-0 w-full bg-black bg-opacity-50 rounded-3xl text-white py-4 px-6 flex items-center justify-between">
+                className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 ">
+                <div className='flex items-center justify-between text-sm'>
+                    <div className='flex items-center'>
+                        <p className='text-gray-400 p-2'>Now Playing:</p> {episodeTitle}
+                    </div>
+                    <div className='flex items-center justify-between'>
+                        <button onClick={handleClearLocalStorage}>
+                            <img src={removeFav} alt='Clear Local Storage' title='Clear Local Storage'
+                                 className='w-8 h-8 m-3'/>
+                        </button>
+                        <div>
+                            {isEpisodeCompleted ?
+                                <p><img src={completedFav} alt='Completed' title='Completed' className='w-10 h-10 m-3'/>
+                                </p>
+                                : <p><img src={incompletedFav} alt='Not Completed' title='Not Completed'
+                                          className='w-8 h-8 m-3'/></p>}
+                        </div>
+                        <button onClick={handleClose}>
+                            <img src={closeBtnFav} alt='Close' title='Close' className='w-10 h-10 m-3 cursor-pointer'/>
+                        </button>
+                    </div>
+                </div>
                 <audio
-                    className="w-full"
+                    className="w-full "
                     ref={audioRef}
                     controls
                     onEnded={handleAudioEnded}
@@ -186,23 +207,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
                 >
                     <source src={audioUrl} type="audio/mpeg"/>
                 </audio>
-                <button onClick={handleClearLocalStorage}>
-                    <img src={removeFav} alt='Clear Local Storage' title='Clear Local Storage'
-                         className='w-10 h-10 m-3'/>
-                </button>
-                <div>
-                    {isEpisodeCompleted ?
-                        <p><img src={completedFav} alt='Completed' title='Completed' className='w-10 h-10 m-3'/></p>
-                        : <p><img src={incompletedFav} alt='Not Completed' title='Not Completed'
-                                  className='w-10 h-10 m-3'/></p>}
-                </div>
-                <button>
-                    <img src={seeMoreFav} alt='See Name' title={episodeTitle}
-                         className='w-10 h-10 m-3'/>
-                </button>
-                <button onClick={handleClose}>
-                    <img src={closeBtnFav} alt='Close' title='Close' className='w-12 h-12 m-3 cursor-pointer'/>
-                </button>
+
+
             </div>
         </div>
     );

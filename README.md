@@ -24,9 +24,9 @@ A podcast app that allows users to browse various podcasts shows, play episodes 
 - On loading into the deployed site you will arrive at the Home page, which has a 'Hero' section and a 
 Row below that. 
 - The 'Hero' section provides a recommended Podcast, with the name genre and description.
-- User can navigate to the PodcastInfo overlay by clicking the play/listen button. The Hero section is changed every minute.
+- User can navigate to the Show overlay by clicking the play/listen button. The Hero section is changed every minute.
 - The 'Browse All Shows' row provided the user the possibility to browse through all the podcasts using the right and left arrow slider.
-- Users can also navigate to the PodcastInfo overlay, the same as with the 'Hero' section.
+- Users can also navigate to the Show overlay, the same as with the 'Hero' section.
 
 ![Screenshot from 2024-03-25 17-02-14](https://github.com/StefanSchutte/STESCH302_FTO2308_GroupA2_Stefan-Schutte_DWACapstone/assets/127427422/d1793bec-e811-4138-ae29-9b5cfb7351bd)
 

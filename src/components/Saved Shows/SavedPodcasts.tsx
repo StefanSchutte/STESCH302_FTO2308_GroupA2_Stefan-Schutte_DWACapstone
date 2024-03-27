@@ -226,12 +226,12 @@ function SavedPodcasts(): JSX.Element {
      * Renders a section titled "Saved for Later" and maps through the favorites array to display each saved podcast item.
      * Each podcast item is displayed with its image and title.
      * It provides a delete button for each podcast item, allowing users to remove it from their favorites.
-     * The PodcastInfo component is used to provide additional functionality for each podcast item, such as saving the episode.
+     * The Show component is used to provide additional functionality for each podcast item, such as saving the episode.
      */
     return (
         <>
             <div className='flex justify-center items-center text-yellow-400 mt-24'>
-                <h1 className="text-white font-bold text-4xl p-4">Favorites</h1>
+                <h1 className="text-white font-bold text-3xl ">Favorites</h1>
             </div>
             <div className="flex items-center justify-center  overflow-x-auto">
                 <button onClick={sortFavoritesByShowAZ}
@@ -265,7 +265,7 @@ function SavedPodcasts(): JSX.Element {
                                 <div>
                                     <img src={episode.season_image} alt={episode.title} className='w-52 h-full m-3 '/>
                                 </div>
-                                <div className="flex flex-col ml-6">
+                                <div className="flex flex-col ml-6 text-sm md:text-base lg:text-lg xl:text-xl">
                                     <div className='font-bold m-3 underline'>{episode.season_title}</div>
                                     <div className=' flex items-center m-2'>
                                         <p className='text-gray-500 pr-4'>Episode:</p>
