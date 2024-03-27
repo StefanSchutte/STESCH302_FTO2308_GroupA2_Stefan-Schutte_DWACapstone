@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Fuse from 'fuse.js';
-import Show from '../components/Views/Show.tsx'
+//import Show from '../components/Views/Show.tsx'
 import { useShows } from "../services/ShowsContext.tsx";
 import Genres from "../helpers/Genres.tsx";
 import {Podcast} from "../types.ts";
+import ShowPage from "./ShowPage.tsx";
 
 /**
  * Filters component to manage searching, filtering, and sorting of podcasts.
@@ -227,7 +228,7 @@ const Filters: React.FC = () => {
                     </ul>
                 </div>
                 {selectedPodcast && (
-                <Show
+                <ShowPage
                     item={selectedPodcast}
                     showOverlay={true}
                     closeOverlay={closeOverlay} />

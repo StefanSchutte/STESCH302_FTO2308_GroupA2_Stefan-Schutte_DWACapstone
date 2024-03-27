@@ -4,12 +4,41 @@ interface AudioPlayerProviderProps {
     children: ReactNode;
 }
 
+interface AudioPlayerContextProps {
+    showAudioPlayer: boolean;
+    setShowAudioPlayer: (show: boolean) => void;
+    audioUrl: string;
+    setAudioUrl: (url: string) => void;
+    episodeId: number | null;
+    setEpisodeId: (id: number | null) => void;
+    showId: number | null;
+    setShowId: (id: number | null) => void;
+    seasonId: number | null;
+    setSeasonId: (id: number | null) => void;
+    episodeTitle: string | null;
+    setEpisodeTitle: (title: string | null) => void;
+}
+
 /**
  *  Create the context.
  *  Allow components to share and access state related to audio player functionality.
  *  Context is primarily used for providing a custom hook.
  */
-const AudioPlayerContext = createContext<any>(null);
+//const AudioPlayerContext = createContext<any>(null);
+const AudioPlayerContext = createContext<AudioPlayerContextProps>({
+    showAudioPlayer: false,
+    setShowAudioPlayer: () => {},
+    audioUrl: '',
+    setAudioUrl: () => {},
+    episodeId: null,
+    setEpisodeId: () => {},
+    showId: null,
+    setShowId: () => {},
+    seasonId: null,
+    setSeasonId: () => {},
+    episodeTitle: null,
+    setEpisodeTitle: () => {},
+});
 
 /**
  * Custom hook to use the context.
@@ -34,6 +63,11 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     const [showAudioPlayer, setShowAudioPlayer] = useState(false);
     const [audioUrl, setAudioUrl] = useState('');
 
+    const [episodeId, setEpisodeId] = useState<number | null>(null);
+    const [showId, setShowId] = useState<number | null>(null);
+    const [seasonId, setSeasonId] = useState<number | null>(null);
+    const [episodeTitle, setEpisodeTitle] = useState<string | null>(null);
+
     /**
      * Function to toggle the audio player visibility.
      */
@@ -42,7 +76,21 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     };
 
     return (
-        <AudioPlayerContext.Provider value={{ showAudioPlayer, setShowAudioPlayer, toggleAudioPlayer, audioUrl, setAudioUrl }}>
+        <AudioPlayerContext.Provider value={{
+            showAudioPlayer,
+            setShowAudioPlayer,
+            toggleAudioPlayer,
+            audioUrl,
+            setAudioUrl,
+            episodeId,
+            setEpisodeId,
+            showId,
+            setShowId,
+            seasonId,
+            setSeasonId,
+            episodeTitle,
+            setEpisodeTitle,
+        }}>
             {children}
         </AudioPlayerContext.Provider>
     );

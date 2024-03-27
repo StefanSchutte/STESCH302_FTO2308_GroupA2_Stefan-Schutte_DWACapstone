@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useShows } from '../../services/ShowsContext.tsx';
-import Show from "../Views/Show.tsx";
+//import Show from "../Views/Show.tsx";
 import Genres from "../../helpers/Genres.tsx";
 import {Podcast} from "../../types.ts";
+import ShowPage from "../../pages/ShowPage.tsx";
 
 /**
  * Functional component representing the hero section of the application.
@@ -78,7 +79,7 @@ function Hero(): JSX.Element {
                     </p>
                 </div>
             </div>
-            {showOverlay && podcast && <Show item={podcast} showOverlay={showOverlay} closeOverlay={closeOverlay} />}
+            {showOverlay && podcast && <ShowPage item={podcast} showOverlay={showOverlay} closeOverlay={closeOverlay} />}
         </div>
     );
 }
