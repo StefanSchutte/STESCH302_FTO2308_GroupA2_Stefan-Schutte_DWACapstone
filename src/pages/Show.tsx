@@ -4,13 +4,10 @@ import supabase from "../supabase.ts";
 import { useAuth } from '../services/AuthContext.tsx'
 import {getShowDetailFromApi} from "../api/API.ts";
 import { useAudioPlayer } from "../services/AudioPlayerContext.tsx";
-//import {OverlayProps} from "../types.ts";
 import {Podcast} from '../types.ts'
 import seeMoreFav from '/seeMore.png';
 import saveBtnFav from "/save.png";
 import closeFav from "/close.png";
-import AudioPlayer from "../components/audio/AudioPlayer.tsx";
-
 
 /**
  * Show component to display detailed information about a podcast.
@@ -69,7 +66,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      * Integrate audio playback features into the component without passing props explicitly.
      */
         //const { showAudioPlayer, setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
-    const { showAudioPlayer, setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
+    const { setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
     const [showSavedPopup, setShowSavedPopup] = useState(false);
     /**
      * Fetches podcast data from api and sets it in the state.

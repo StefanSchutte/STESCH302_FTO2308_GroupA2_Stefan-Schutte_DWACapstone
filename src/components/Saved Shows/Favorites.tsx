@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useAuth } from "../../services/AuthContext.tsx";
 import supabase from "../../supabase.ts";
 import { format } from 'date-fns'
-import AudioPlayer from "../audio/AudioPlayer.tsx";
 import removeFav from '/remove.png';
 import shareFav from '/share.png';
 import {FavoriteData, Podcast, PodcastFavorite} from "../../types.ts";
@@ -25,9 +24,9 @@ function Favorites(): JSX.Element {
     const { user } = useAuth();
     const [selectedEpisode, setSelectedEpisode] = useState<PodcastFavorite | null>(null);
     const [podcastData, setPodcastData] = useState<Podcast | null>(null);
-    const [selectedEpisodeForAudio, setSelectedEpisodeForAudio] = useState<string | null>(null);
+    //const [selectedEpisodeForAudio, setSelectedEpisodeForAudio] = useState<string | null>(null);
     const [shareUrl, setShareUrl] = useState<string>('');
-    const { setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle, setInitialTimestamp } = useAudioPlayer();
+    const { setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
     /**
      * Fetch the user's favorite podcasts from the database whenever the user object changes.
      * This ensures that the component updates its state when the user logs in or out.
@@ -203,9 +202,9 @@ function Favorites(): JSX.Element {
     const openAudioPlayer = (episodeId: string) => {
         const selectedEpisode = favorites.find(episode => episode.id === episodeId);
         if (selectedEpisode) {
-             setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
+             //setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
             setShowAudioPlayer(true);
-            //setAudioUrl(selectedEpisode.mp3_file);
+            setAudioUrl(selectedEpisode.mp3_file);
             setEpisodeId(parseInt(episodeId));
             setShowId(parseInt(selectedEpisode.season_id));
             setSeasonId(parseInt(selectedEpisode.season_id));

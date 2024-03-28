@@ -81,3 +81,18 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
         </AudioPlayerContext.Provider>
     );
 };
+//dif abstractions and how they function
+//presentation
+//state
+//persisting
+//why create abs and component
+//piece togeter
+//issus
+//resilve
+//work arounds
+//improvements
+
+// less about exactly how code works.
+//high level overview
+//understanding
+//brief concise
