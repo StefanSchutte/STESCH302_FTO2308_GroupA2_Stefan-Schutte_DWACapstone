@@ -4,6 +4,7 @@ import Row from '../components/Views/Row';
 import { useShows } from "../services/ShowsContext.tsx";
 import {Podcast} from "../types.ts";
 import Show from "./Show.tsx";
+
 /**
  * Home component representing the main page of the application.
  */

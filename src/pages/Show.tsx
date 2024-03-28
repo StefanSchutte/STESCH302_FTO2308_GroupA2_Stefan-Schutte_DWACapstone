@@ -15,8 +15,7 @@ import closeFav from "/close.png";
  * item - The podcast item containing details.
  * showOverlay - Boolean to control the visibility of the overlay.
  * closeOverlay - Function to close the overlay.
- * State Initialization.
- * Initialized using the useState hook:
+ * State Initialization. Initialized using the useState hook.
  */
 const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
     /**
@@ -25,8 +24,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      */
     const [podcastData, setPodcastData] = useState<any>(null);
     /**
-     * Represents the selected season.
-     * Represents the selected episode.
+     * Represents the selected season and selected episode.
      * State variables store the currently selected season and episode numbers, respectively.
      * They are initially set to null.
      * Gets updated when a user selects a season or episode from the dropdown menus in the overlay.
@@ -44,7 +42,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      */
     const [loading, setLoading] = useState(false);
     /**
-     * Control the visibility of additional content sections, uch as episode lists and season details.
+     * Control the visibility of additional content sections, such as episode lists and season details.
      * Initially set to false and are toggled between true and false based on user interactions.
      */
     const [expanded, setExpanded] = useState(false);
@@ -65,55 +63,57 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      * Hook used to access audio player functionalities within the component.
      * Integrate audio playback features into the component without passing props explicitly.
      */
-        //const { showAudioPlayer, setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
     const { setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
+    /** State for popup modal to confirm saving. */
     const [showSavedPopup, setShowSavedPopup] = useState(false);
+
     /**
      * Fetches podcast data from api and sets it in the state.
      * Manages the body overflow and fetches podcast data based on changes in item and showOverlay.
-     * 'handleBodyOverflow' function toggles the overflow-hidden class on the <body> element depending on whether the overlay is shown.
-     * 'overflow-hidden' class applied to the <body> element to prevent scrolling of the body content while the overlay is displayed.
-     * If overlay is not shown or there's no item, it removes the overflow-hidden class.
      * Triggers the 'handleBodyOverflow' function whenever the window is resized.
      * Ensures that the overflow behavior is updated dynamically if the window size changes while the overlay is shown.
      */
     useEffect(() => {
         const handleBodyOverflow = () => {
+            /**
+             * Toggles the overflow-hidden class on the <body> element depending on whether the overlay is shown.
+             * 'overflow-hidden' class applied to the <body> element to prevent scrolling of the body content while the overlay is displayed.
+             */
             if (showOverlay && item) {
                 document.body.classList.add('overflow-hidden');
             } else {
+                /** If overlay is not shown or there's no item, it removes the overflow-hidden class. */
                 document.body.classList.remove('overflow-hidden');
             }
         };
         handleBodyOverflow();
         window.addEventListener('resize', handleBodyOverflow);
+        /** Cleanup function to remove event listener. */
         return () => {
             if (showOverlay) {
                 document.body.classList.remove('overflow-hidden');
             }
             window.removeEventListener('resize', handleBodyOverflow);
         }
-
     }, [showOverlay]);
 
     /**
      * Fetches podcast data when the overlay is shown, based on changes in item and showOverlay.
-     * Call the getShowDetailFromApi function from the imported module.
-     * When the 'showOverlay' state is true, the effect sets the loading state to true to indicate that data fetching is in progress.
-     * Calls the 'getShowDetailFromApi' function with the 'item.id' parameter to fetch information from the API.
-     * Upon successfully fetching the data, it updates the podcastData state with the fetched data using setPodcastData.
-     * After updating the state with the fetched data, it sets the loading state back to false.
-     * If an error occurs during the API request, it catches the error, sets the loading state to false, and continues execution.
      */
     useEffect(() => {
+        /** When the 'showOverlay' state is true, the effect sets the loading state to true to indicate that data fetching is in progress. */
         if (showOverlay && item) {
             setLoading(true);
+            /** Calls the 'getShowDetailFromApi' function with the 'item.id' parameter to fetch information from the API. */
             getShowDetailFromApi(item.id)
                 .then(data => {
+                    /** Upon successfully fetching the data, it updates the podcastData state with the fetched data using setPodcastData. */
                     setPodcastData(data);
+                    /** After updating the state with the fetched data, it sets the loading state back to false. */
                     setLoading(false);
                 })
                 .catch(error => {
+                    /** If an error occurs during the API request, it catches the error, sets the loading state to false, and continues execution. */
                     console.error('Error fetching podcast data:', error);
                     setLoading(false);
                 });
@@ -122,7 +122,6 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
 
     /**
      * Save data to Supabase.
-     *
      */
     const handleSave = async () => {
         /**
@@ -178,17 +177,27 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
         toggleSavedPopup();
     };
 
+    /**
+     *  Toggles the state variable showSavedPopup using the 'setShowSavedPopup' function provided by the useState hook.
+     *  If 'showSavedPopup' is true, it sets it to false, and vice versa.
+     */
     const toggleSavedPopup = () => {
         setShowSavedPopup(!showSavedPopup);
     };
 
+    /**
+     * Takes a function as its first argument, which will be executed after the component renders.
+     * If any of the dependencies change between renders, the effect function will be re-executed.
+     * Triggered whenever the showSavedPopup state variable changes.
+     */
     useEffect(() => {
+        /** If showSavedPopup is true, a timeout is set.  */
         if (showSavedPopup) {
             const timeoutId = setTimeout(() => {
                 toggleSavedPopup(); // Hide the popup after 3 seconds
             }, 3000);
 
-            // Cleanup function to clear the timeout if the component unmounts or if the popup is hidden manually
+            /** Cleanup function to clear the timeout if the component unmounts or if the popup is hidden manually. */
             return () => clearTimeout(timeoutId);
         }
     }, [showSavedPopup]);
@@ -210,29 +219,31 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      * Retrieves the URL of the selected episode's audio file.
      */
     const handleEpisodeSelect = (episodeNumber: number) => {
+        /** Sets the 'selectedEpisode' state variable to the 'episodeNumber' passed as an argument to the function.  */
         setSelectedEpisode(episodeNumber);
-
+        /** Checks if 'podcastData' is available and if 'selectedSeason' is not null. */
         if (podcastData && selectedSeason !== null) {
-
-            const audioElement = document.getElementById('audio-player') as HTMLAudioElement;
-            if (audioElement) {
-                audioElement.pause();
-            }
-
+            /**
+             * Retrieves data of the selected episode from the podcastData based on the selected season and episode numbers.
+             * Extracts the id, title, and file (URL) of the selected episode.
+             */
             const selectedShowId = item.id;
             const selectedSeasonId = selectedSeason;
             const selectedEpisodeTitle = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].title;
             const selectedEpisodeFile = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].file;
             const selectedEpisodeId = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].id;
+            /** Sets the URL of the selected episode's audio file. */
             setAudioUrl(selectedEpisodeFile);
+            /** Sets the ID of the selected episode. */
             setEpisodeId(selectedEpisodeId);
+            /** Sets the ID of the show (podcast). */
             setShowId(parseInt(selectedShowId));
+            /** Sets the ID of the selected season. */
             setSeasonId(selectedSeasonId);
+            /** Sets the title of the selected episode. */
             setEpisodeTitle(selectedEpisodeTitle);
-            // Show the audio player automatically
+            /** Sets state variable to true,  audio player displayed. */
             setShowAudioPlayer(true);
-
-
         }
     };
 
@@ -282,7 +293,8 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
         <>
             <div className="fixed top-0 left-0 w-full h-[75vh] flex items-center justify-center z-[90] overflow-hidden">
                 <div className="text-yellow-400 bg-black bg-opacity-0 z-[100] rounded-lg overflow-hidden">
-                    <div className="w-[90vw] h-[60vh] border border-purple-300 bg-cover bg-center rounded-t-lg" style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
+                    <div className="w-[90vw] h-[60vh] border border-purple-500 bg-cover bg-center rounded-t-lg"
+                         style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url(${item.image})` }}>
                         <div className="p-4 m-4 rounded-lg max-w-screen h-full overflow-auto scrollbar-hide">
                             <div className="flex items-center flex-col mb-4 sm:flex-row sm:items-center sm:justify-start">
                                 <div className="mr-4">
@@ -429,24 +441,11 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
                                                 )}
                                             </div>
                                         </div>
-                                        {/*{showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&*/}
-                                        {/*    <AudioPlayer*/}
-                                        {/*        audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}*/}
-                                        {/*        showId={parseInt(item.id)}*/}
-                                        {/*        episodeId={selectedEpisode}*/}
-                                        {/*        seasonId={selectedSeason}*/}
-                                        {/*        setShowAudioPlayer={setShowAudioPlayer}*/}
-                                        {/*        setAudioUrl={setAudioUrl}*/}
-                                        {/*        episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}*/}
-                                        {/*        userId={user ? user.id : ''}*/}
-                                        {/*        onClose={() => setShowAudioPlayer(false)}*/}
-                                        {/*    />*/}
-                                        {/*}*/}
                                     </div>
                                 )
                             )}
                             <button className="absolute top-4 right-4 " onClick={handleCloseOverlay}>
-                                <img src={closeFav} alt="close" className='w-15 h-15 ml-2 border-2 border-purple-300 rounded-full' title='CLose'/>
+                                <img src={closeFav} alt="close" className='w-15 h-15 ml-2 border-2 border-purple-500 rounded-full' title='CLose'/>
                             </button>
                         </div>
                     </div>

@@ -6,7 +6,6 @@ import loginFav from "/log-in.png";
 /**
  * Functional component representing the login form.
  * Defies local state variables using the useState hook, including email, password, and error to manage form input and error messages.
- * @returns JSX.Element
  */
 function Login(): JSX.Element {
 
@@ -14,13 +13,9 @@ function Login(): JSX.Element {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string>('');
-    /**
-     * Access authentication-related functionality, such as logging in (logIn) and accessing the current user (user).
-     */
+    /** Access authentication-related functionality, such as logging in (logIn) and accessing the current user (user). */
     const { user, logIn } = useAuth();
-    /**
-     * Navigate to different routes within the application.
-     */
+    /** Navigate to different routes within the application. */
     const navigate = useNavigate();
 
     /**
@@ -39,8 +34,6 @@ function Login(): JSX.Element {
      * Attempts to log in the user using the logIn function from the useAuth hook.
      * Redirects the user to the home page ('/') upon successful login.
      * If an error occurs during the login process, it sets the error state with the error message.
-     * @param {FormEvent<HTMLFormElement>} e - Form event
-     * @returns {Promise<void>}
      */
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
@@ -71,9 +64,7 @@ function Login(): JSX.Element {
                         <div className='max-w-[450px] h-[500px] mx-auto bg-black/75 text-yellow-400'>
                             <div className='max-w-[320px] mx-auto py-16'>
                                 <h1 className='text-5xl mb-6 font-bold'>Log In</h1>
-
                                 {error ? <p className='p3 bg-red-400 my-2 text-amber-50'>{error}</p> : null}
-
                                 <form onSubmit={handleSubmit} className='w-full flex flex-col py-4'>
                                     <input
                                         onChange={(e) => setEmail(e.target.value)}
@@ -92,7 +83,6 @@ function Login(): JSX.Element {
                                     <button className='bg-green-500 py-3 my-6 rounded font-bold text-amber-50 flex justify-center items-center'>
                                         <img src={loginFav} className='w-10 h-10' alt='Log In!'/>
                                     </button>
-
                                     <p className='py-8 text-amber-50'>
                                         <span className='text-sm text-yellow-400'>Not Subscribed?</span>{' '}
                                         <Link to='/signup'>

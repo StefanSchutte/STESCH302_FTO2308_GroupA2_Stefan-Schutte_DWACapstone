@@ -181,7 +181,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
     return (
         <div className='flex items-center justify-between '>
-            <div className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 border border-purple-300">
+            <div className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 border border-purple-400">
                 <div className='flex items-center justify-between text-sm'>
                     <div className='flex items-center'>
                         <p className='text-gray-400 p-2'>

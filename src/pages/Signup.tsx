@@ -12,13 +12,9 @@ function Signup(): JSX.Element {
     const signUpLogo = 'https://images.unsplash.com/photo-1494232410401-ad00d5433cfa?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    /**
-     * Used to access authentication-related functionality, specifically the signUp function.
-     */
+    /** Used to access authentication-related functionality, the signUp function. */
     const { signUp } = useAuth();
-    /**
-     * Used to navigate to different routes within the application.
-     */
+    /** Used to navigate to different routes within the application. */
     const navigate = useNavigate();
     
     /**
@@ -27,14 +23,11 @@ function Signup(): JSX.Element {
      * Attempts to sign up the user using the signUp function from the useAuth hook.
      * Redirects the user to the home page ('/') upon successful signup.
      * If an error occurs during the signup process, it logs the error to the console.
-     * @param {FormEvent<HTMLFormElement>} e - Form event
-     * @returns {Promise<void>}
      */
     const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
         e.preventDefault();
         try {
             await signUp(email, password);
-
             navigate('/');
         } catch (error) {
             console.log(error);
@@ -56,8 +49,14 @@ function Signup(): JSX.Element {
                     <div className='max-w-[320px] mx-auto py-16'>
                         <h1 className='text-5xl mb-6 font-bold'>Sign Up</h1>
                         <form onSubmit={handleSubmit} className='w-full flex flex-col py-4'>
-                            <input onChange={(e) => setEmail(e.target.value)} className='p-3 my-2 bg-gray-600 rounded' type='email' placeholder='Email' autoComplete='email' />
-                            <input onChange={(e) => setPassword(e.target.value)} className='p-3 my-2 bg-gray-600 rounded' type='password' placeholder='Password' autoComplete='current-password' />
+                            <input onChange={(e) => setEmail(e.target.value)}
+                                   className='p-3 my-2 bg-gray-600 rounded' type='email' placeholder='Email'
+                                   autoComplete='email'
+                            />
+                            <input onChange={(e) => setPassword(e.target.value)}
+                                   className='p-3 my-2 bg-gray-600 rounded' type='password' placeholder='Password'
+                                   autoComplete='current-password'
+                            />
                             <button className='bg-green-500 py-3 my-6 rounded font-bold text-amber-50 flex justify-center items-center'>
                                 <img src={signupFav} alt='Sign Up' className='w-10 h-10'/>
                             </button>
