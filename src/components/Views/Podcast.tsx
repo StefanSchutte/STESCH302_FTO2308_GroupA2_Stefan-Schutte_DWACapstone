@@ -1,8 +1,5 @@
 import React from 'react';
 
-/**
- * Props for the Podcast component.
- */
 interface PodcastProps {
     item: {
         image: string;
@@ -13,10 +10,10 @@ interface PodcastProps {
 
 /**
  * Functional component representing a podcast card.
+ * It displays the podcast image and title.
  * Invokes the openOverlay function with the item prop as its argument when the card is clicked.
- * @param {PodcastProps} item - The podcast item containing image and title.
- * @param {Function} openOverlay - Function to open the overlay with podcast data.
- * @returns {JSX.Element} The rendered podcast card.
+ * item - The podcast item containing image and title.
+ * openOverlay - Function to open the overlay with podcast data.
  */
 const Podcast: React.FC<PodcastProps> = function ({item, openOverlay}) {
 
@@ -30,9 +27,8 @@ const Podcast: React.FC<PodcastProps> = function ({item, openOverlay}) {
 
     /**
      * Returns JSX representing a podcast card:
-     * It displays the podcast image and title.
      * The image and title are conditionally rendered using optional chaining (?.) to avoid errors if the item prop is null or undefined.
-     * A button is provided to play the podcast, and the handleClick function is attached to its onClick event handler.
+     * 'handleClick' function is attached to its onClick event handler.
      */
     return (
         <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w[240px] inline-block cursor-pointer relative p-2' onClick={handleClick}>

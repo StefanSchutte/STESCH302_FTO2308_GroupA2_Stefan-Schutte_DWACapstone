@@ -5,19 +5,15 @@ import {useShows} from "../../services/ShowsContext.tsx";
 import { Podcast as PodcastType } from '../../types.ts'
 
 interface RowProps {
-    /** The title of the row. */
     title: string;
-
-    /** The unique identifier for the row. */
     rowId: string;
-    /** Function to open an overlay for a podcast. */
     openOverlay: (podcast: PodcastType) => void;
     podcasts: PodcastType[];
 }
 
 /**
  * Row component to display a horizontal row of podcasts.
- * useShows hook is used to access the podcasts data.
+ * ;useShows; hook is used to access the podcasts data.
  */
 const Row: React.FC<RowProps> = ({ title, rowId, openOverlay }) => {
 
