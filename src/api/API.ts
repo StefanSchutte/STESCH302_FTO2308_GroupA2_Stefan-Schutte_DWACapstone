@@ -1,4 +1,5 @@
 /**
+ * Show
  * Fetches data from API endpoint that provides details of a specific show based on its ID.
  * Accepts an itemId parameter - the ID of the show whose details are to be fetched.
  * Uses fetch to make an HTTP GET request to the URL.
@@ -22,6 +23,7 @@ const getShowDetailFromApi = async (itemId: string): Promise<any[]> => {
 };
 
 /**
+ * Preview
  * Fetches data from API endpoint that provides a list of shows.
  * Uses the fetch API to make an HTTP GET request to the URL.
  * Awaits the response from the API, which parses the response body as JSON.

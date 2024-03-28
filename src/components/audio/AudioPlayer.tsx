@@ -1,9 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {useAudioPlayer} from "../../services/AudioPlayerContext.tsx";
 import closeBtnFav from '/close.png';
 import completedFav from'/checklist.png'
 import incompletedFav from '/incomplete.png'
 import removeFav from "/remove.png";
-import {useAudioPlayer} from "../../services/AudioPlayerContext.tsx";
 
 interface AudioPlayerProps {
     audioUrl: string;
@@ -18,9 +18,13 @@ interface AudioPlayerProps {
 }
 
 /**
- * Functional component representing an audio player.
- * Receives props defined by the AudioPlayerProps interface.
+ * Audio Player Functional component.
  * Props provide information for the audio player to function, such as the URL of the audio file, user and episode IDs, and episode progress.
+ * <audio> element with controls.
+ * Plays the provided 'audioUrl'.
+ * Close button represented by an <img> element, which triggers the handleClose function when clicked.
+ * Renders buttons for clearing local storage, displaying episode completion status, and closing the audio player.
+ * The 'audioUrl' is used as the source for the audio element.
  */
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
          audioUrl,
@@ -47,13 +51,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      * Stored progress parsed into a floating-point number and sets the progress state to this value.
      * Sets its 'currentTime' property to the parsed progress value.
      * Ensures that if the user returns to the episode, the audio playback resumes from where they left off.
-     * Calls storeLastListenedEpisode(), which updates the local storage to remember the last listened episode's URL.
      * Retrieves the stored completion status of the current episode from local storage.
      * If the completion status is 'true', it sets the isEpisodeCompleted state to true, indicating that the episode has been completed.
      */
     useEffect(() => {
 
         const storedProgress = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_progress`);
+
         if (storedProgress) {
             const parsedProgress = parseFloat(storedProgress);
             setProgress(parsedProgress);
@@ -64,10 +68,11 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
             setProgress(0);
             if (audioRef.current) {
                 audioRef.current.currentTime = 0;
-        }
+            }
         }
 
         const storedCompletionStatus = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_completed`);
+
         if (storedCompletionStatus === 'true') {
             setIsEpisodeCompleted(true);
         } else {
@@ -78,7 +83,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     /**
      * Called when the <audio> element emits the onTimeUpdate event, indicating that the playback progress has changed.
      * Updates the progress state with the current playback time obtained from the <audio> element.
-     * Stores the current playback time in the local storage, associating it with the current user, show, season, and episode IDs.
+     * Stores the current playback time in the local storage, associating it with the current user, show, season, and episode titles.
      * Allows the application to remember the playback progress of the episode even if the user navigates away from the page.
      */
     const handleProgressUpdate = () => {
@@ -91,7 +96,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
 
     /**
      * Mark the current episode as completed.
-     * Sets the isEpisodeCompleted state to true, indicating that the episode has been completed.
+     * Sets the 'isEpisodeCompleted' state to true, indicating that the episode has been completed.
      * Stores the completion status of the episode in local storage.
      */
     const markEpisodeCompleted = () => {
@@ -117,7 +122,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     const handleAudioEnded = () => {
         handleEpisodeCompletion();
         markEpisodeCompleted();
-
     };
 
     /**
@@ -125,17 +129,17 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      * Retrieves the completion status of the current episode from local storage.
      * If the completion status is 'true', it sets the isEpisodeCompleted state to true.
      * Ensures that the completion status is reflected in the component's state.
-     *
      */
     useEffect(() => {
         const storedCompletionStatus = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_completed`);
+
         if (storedCompletionStatus === 'true') {
             setIsEpisodeCompleted(true);
         }
     }, []);
 
     /**
-     * Triggered when the user wants to clear all data stored in the local storage.
+     * Triggered when the user clears all data stored in the local storage.
      * Clears all data stored in the local storage by calling 'localStorage.clear()'.
      * Reloads the window to reflect the changes caused by clearing the storage.
      */
@@ -149,11 +153,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      * Manage the visibility of the audio player component within the application.
      * Triggered when the user attempts to close the audio player.
      * Confirmation prompt, asking if they are sure they want to close the audio player.
-     * Handles closing the audio player component or updating its visibility.
+     * Handles closing the audio player component.
      * Sets 'showAudioPlayer' state to false using the 'setShowAudioPlayer 'function obtained from the useAudioPlayer hook.
      */
     const handleClose = () => {
         const confirmPrompt = window.confirm('Are you sure you want to close the Audio Player?');
+
         if (confirmPrompt) {
             onClose();
             setShowAudioPlayer(false)
@@ -161,7 +166,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     };
 
     /**
-     * Function to store the last listened show and episode in localStorage.
+     * Function to store the last listened episode in localStorage.
      */
     const storeLastListenedEpisode = (audioUrl: string, progress: number) => {
         if (progress) {
@@ -169,36 +174,34 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
             localStorage.setItem('last_playback_position', progress.toString());
         }
     };
+
     useEffect(() => {
         storeLastListenedEpisode(audioUrl, progress);
     }, [audioUrl, progress]);
 
-    /**
-     * <audio> element with controls, using the provided audioUrl.
-     * Close button represented by an <img> element, which triggers the handleClose function when clicked.
-     * Renders buttons for clearing local storage, displaying episode completion status, and closing the audio player.
-     * The audioUrl is used as the source for the audio element.
-     */
     return (
         <div className='flex items-center justify-between '>
-
-            <div
-                className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 border border-purple-300">
+            <div className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 border border-purple-300">
                 <div className='flex items-center justify-between text-sm'>
                     <div className='flex items-center'>
-                        <p className='text-gray-400 p-2'>Now Playing:</p> {episodeTitle}
+                        <p className='text-gray-400 p-2'>
+                            Now Playing:
+                        </p>
+                        {episodeTitle}
                     </div>
                     <div className='flex items-center justify-between'>
                         <button onClick={handleClearLocalStorage}>
-                            <img src={removeFav} alt='Clear Local Storage' title='Clear Local Storage'
-                                 className='w-8 h-8 m-3'/>
+                            <img src={removeFav} alt='Clear Local Storage' title='Clear Local Storage' className='w-8 h-8 m-3'/>
                         </button>
                         <div>
                             {isEpisodeCompleted ?
-                                <p><img src={completedFav} alt='Completed' title='Completed' className='w-10 h-10 m-3'/>
+                                <p>
+                                    <img src={completedFav} alt='Completed' title='Completed' className='w-10 h-10 m-3'/>
                                 </p>
-                                : <p><img src={incompletedFav} alt='Not Completed' title='Not Completed'
-                                          className='w-8 h-8 m-3'/></p>}
+                                : <p>
+                                    <img src={incompletedFav} alt='Not Completed' title='Not Completed'
+                                          className='w-8 h-8 m-3'/>
+                                </p>}
                         </div>
                         <button onClick={handleClose}>
                             <img src={closeBtnFav} alt='Close' title='Close' className='w-10 h-10 m-3 cursor-pointer'/>
@@ -214,8 +217,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
                 >
                     <source src={audioUrl} type="audio/mpeg"/>
                 </audio>
-
-
             </div>
         </div>
     );
