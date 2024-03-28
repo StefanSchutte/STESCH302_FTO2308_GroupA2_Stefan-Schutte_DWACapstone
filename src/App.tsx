@@ -35,9 +35,7 @@ function App(): JSX.Element {
                           <Route path="/shared-favorites/:userId/:episodeId" element={<SharedFavorites />} />
                           <Route path="/show/:id" element={<Show />} />
                       </Routes>
-
-                      {/*<AudioPlayerComponent />*/}
-
+                      <AudioPlayerComponent />
                   </AudioPlayerProvider>
               </AuthContextProvider>
           </>
@@ -51,7 +49,7 @@ function App(): JSX.Element {
  * It renders the AudioPlayer component with the provided audioUrl and an onClose callback to toggle the showAudioPlayer state to false.
  */
 const AudioPlayerComponent = () => {
-    const { showAudioPlayer, setShowAudioPlayer, audioUrl, userId, episodeId, showId, seasonId, episodeTitle } = useAudioPlayer();
+    const { showAudioPlayer, setShowAudioPlayer, audioUrl, userId, episodeId, showId, seasonId, episodeTitle, setAudioUrl } = useAudioPlayer();
 
     return showAudioPlayer ? (
         <AudioPlayer
@@ -63,7 +61,7 @@ const AudioPlayerComponent = () => {
             episodeTitle={episodeTitle}
             userId={userId}
             setShowAudioPlayer={setShowAudioPlayer}
-            setAudioUrl={() => {}}
+            setAudioUrl={setAudioUrl}
 
         />
     ) : null;

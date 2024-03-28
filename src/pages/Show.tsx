@@ -217,15 +217,17 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
 
         if (podcastData && selectedSeason !== null) {
 
+            const audioElement = document.getElementById('audio-player') as HTMLAudioElement;
+            if (audioElement) {
+                audioElement.pause();
+            }
+
             const selectedShowId = item.id;
             const selectedSeasonId = selectedSeason;
             const selectedEpisodeTitle = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].title;
             const selectedEpisodeFile = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].file;
             const selectedEpisodeId = podcastData.seasons[selectedSeason - 1].episodes[episodeNumber - 1].id;
             setAudioUrl(selectedEpisodeFile);
-
-
-
             setEpisodeId(selectedEpisodeId);
             setShowId(parseInt(selectedShowId));
             setSeasonId(selectedSeasonId);
@@ -278,17 +280,6 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
     const handleCloseOverlay = () => {
         closeOverlay();
     };
-
-    // useEffect(() => {
-    //     console.log("Initial timestamp:", initialTimestamp);
-    //     // Set the initial playback position if there's a stored timestamp
-    //     if (showAudioPlayer && initialTimestamp !== null) {
-    //         const audioElement = document.getElementById('audio-player') as HTMLAudioElement;
-    //         if (audioElement) {
-    //             audioElement.currentTime = initialTimestamp;
-    //         }
-    //     }
-    // }, [showAudioPlayer, initialTimestamp]);
 
     return (
         <>
@@ -441,19 +432,19 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
                                                 )}
                                             </div>
                                         </div>
-                                        {showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&
-                                            <AudioPlayer
-                                                audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}
-                                                showId={parseInt(item.id)}
-                                                episodeId={selectedEpisode}
-                                                seasonId={selectedSeason}
-                                                setShowAudioPlayer={setShowAudioPlayer}
-                                                setAudioUrl={setAudioUrl}
-                                                episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}
-                                                userId={user ? user.id : ''}
-                                                onClose={() => setShowAudioPlayer(false)}
-                                            />
-                                        }
+                                        {/*{showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&*/}
+                                        {/*    <AudioPlayer*/}
+                                        {/*        audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}*/}
+                                        {/*        showId={parseInt(item.id)}*/}
+                                        {/*        episodeId={selectedEpisode}*/}
+                                        {/*        seasonId={selectedSeason}*/}
+                                        {/*        setShowAudioPlayer={setShowAudioPlayer}*/}
+                                        {/*        setAudioUrl={setAudioUrl}*/}
+                                        {/*        episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}*/}
+                                        {/*        userId={user ? user.id : ''}*/}
+                                        {/*        onClose={() => setShowAudioPlayer(false)}*/}
+                                        {/*    />*/}
+                                        {/*}*/}
                                     </div>
                                 )
                             )}

@@ -4,22 +4,6 @@ interface AudioPlayerProviderProps {
     children: ReactNode;
 }
 
-// interface AudioPlayerContextProps {
-//     showAudioPlayer: boolean;
-//     setShowAudioPlayer: (show: boolean) => void;
-//     audioUrl: string;
-//     setAudioUrl: (url: string) => void;
-//     episodeId: number | null;
-//     setEpisodeId: (id: number | null) => void;
-//     showId: number | null;
-//     setShowId: (id: number | null) => void;
-//     seasonId: number | null;
-//     setSeasonId: (id: number | null) => void;
-//     episodeTitle: string | null;
-//     setEpisodeTitle: (title: string | null) => void;
-//     userId: string;
-// }
-
 /**
  *  Create the context.
  *  Allow components to share and access state related to audio player functionality.
@@ -39,8 +23,6 @@ const AudioPlayerContext = createContext<any>({
     setSeasonId: () => {},
     episodeTitle: null,
     setEpisodeTitle: () => {},
-    setInitialTimestamp: () => {},
-    initialTimestamp:  () => {},
 });
 
 /**
@@ -70,7 +52,6 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     const [showId, setShowId] = useState<number | null>(null);
     const [seasonId, setSeasonId] = useState<number | null>(null);
     const [episodeTitle, setEpisodeTitle] = useState<string | null>(null);
-    //const [initialTimestamp, setInitialTimestamp] = useState<any | null>(null);
 
     /**
      * Function to toggle the audio player visibility.
@@ -94,8 +75,7 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
             setSeasonId,
             episodeTitle,
             setEpisodeTitle,
-            // initialTimestamp,
-            // setInitialTimestamp
+
         }}>
             {children}
         </AudioPlayerContext.Provider>

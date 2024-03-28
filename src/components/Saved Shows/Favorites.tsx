@@ -187,14 +187,11 @@ function Favorites(): JSX.Element {
             if (!groupedBySeason[seasonKey]) {
                 groupedBySeason[seasonKey] = {};
             }
-
             if (!groupedBySeason[seasonKey][subSeasonKey]) {
                 groupedBySeason[seasonKey][subSeasonKey] = [];
             }
-
             groupedBySeason[seasonKey][subSeasonKey].push(episode);
         });
-
         setFavorites(Object.values(groupedBySeason).flatMap(Object.values).flat());
     };
 
@@ -311,19 +308,19 @@ function Favorites(): JSX.Element {
                     ))}
                 </ul>
             </div>
-            {selectedEpisodeForAudio && selectedEpisode && (
-                <AudioPlayer
-                    audioUrl={selectedEpisode.mp3_file}
-                    onClose={() => setSelectedEpisodeForAudio(null)}
-                    userId={user?.id ?? ''}
-                    episodeId={parseInt(selectedEpisode.id)}
-                    showId={parseInt(selectedEpisode.season_id)}
-                    seasonId={parseInt(selectedEpisode.season_id)}
-                    episodeTitle={selectedEpisode.title}
-                    setShowAudioPlayer={() => {}}
-                    setAudioUrl={() => {}}
-                />
-            )}
+            {/*{selectedEpisodeForAudio && selectedEpisode && (*/}
+            {/*    <AudioPlayer*/}
+            {/*        audioUrl={selectedEpisode.mp3_file}*/}
+            {/*        onClose={() => setSelectedEpisodeForAudio(null)}*/}
+            {/*        userId={user?.id ?? ''}*/}
+            {/*        episodeId={parseInt(selectedEpisode.id)}*/}
+            {/*        showId={parseInt(selectedEpisode.season_id)}*/}
+            {/*        seasonId={parseInt(selectedEpisode.season_id)}*/}
+            {/*        episodeTitle={selectedEpisode.title}*/}
+            {/*        setShowAudioPlayer={() => {}}*/}
+            {/*        setAudioUrl={() => {}}*/}
+            {/*    />*/}
+            {/*)}*/}
         </>
     );
 }

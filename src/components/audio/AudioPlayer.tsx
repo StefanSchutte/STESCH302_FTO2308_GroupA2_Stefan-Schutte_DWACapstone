@@ -15,8 +15,6 @@ interface AudioPlayerProps {
     episodeTitle: string;
     setShowAudioPlayer: (show: boolean) => void;
     setAudioUrl: (url: string) => void;
-    // initialTimestamp: number | null;
-
 }
 
 /**
@@ -27,7 +25,6 @@ interface AudioPlayerProps {
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
          audioUrl,
          onClose,
-         episodeId,
          seasonId,
          showId,
          userId,
@@ -56,20 +53,27 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      */
     useEffect(() => {
 
-        const storedProgress = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_progress`);
+        const storedProgress = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_progress`);
         if (storedProgress) {
             const parsedProgress = parseFloat(storedProgress);
             setProgress(parsedProgress);
             if (audioRef.current) {
                 audioRef.current.currentTime = parsedProgress;
             }
+        } else {
+            setProgress(0);
+            if (audioRef.current) {
+                audioRef.current.currentTime = 0;
+        }
         }
 
-        const storedCompletionStatus = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_completed`);
+        const storedCompletionStatus = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_completed`);
         if (storedCompletionStatus === 'true') {
             setIsEpisodeCompleted(true);
+        } else {
+            setIsEpisodeCompleted(false)
         }
-    }, [episodeId, seasonId, showId, userId]);
+    }, [episodeTitle, seasonId, showId, userId]);
 
     /**
      * Called when the <audio> element emits the onTimeUpdate event, indicating that the playback progress has changed.
@@ -81,7 +85,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         if (audioRef.current) {
             const currentTime = audioRef.current.currentTime;
             setProgress(currentTime);
-            localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_progress`, currentTime.toString());
+            localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_progress`, currentTime.toString());
         }
     };
 
@@ -92,7 +96,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      */
     const markEpisodeCompleted = () => {
         setIsEpisodeCompleted(true);
-        localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_completed`, 'true');
+        localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_completed`, 'true');
     };
 
     /**
@@ -103,7 +107,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      */
     const handleEpisodeCompletion = async () => {
         setIsEpisodeCompleted(true);
-        localStorage.setItem(`episode_${episodeId}_completed`, 'true');
+        localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_completed`, 'true');
     };
 
     /**
@@ -124,7 +128,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      *
      */
     useEffect(() => {
-        const storedCompletionStatus = localStorage.getItem(`episode_${episodeId}_completed`);
+        const storedCompletionStatus = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_completed`);
         if (storedCompletionStatus === 'true') {
             setIsEpisodeCompleted(true);
         }
@@ -156,19 +160,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         }
     };
 
-    // /**
-    //  * Function to store the last listened show and episode in localStorage.
-    //  */
-    // const storeLastListenedEpisode = (audioUrl: string, progress: number) => {
-    //     if (progress) {
-    //         console.log("Storing last listened episode:", audioUrl);
-    //         localStorage.setItem('last_listened_url', audioUrl.toString());
-    //         localStorage.setItem('last_playback_position', progress.toString());
-    //     }
-    // };
-    // useEffect(() => {
-    //     storeLastListenedEpisode(audioUrl, progress);
-    // }, [audioUrl, progress]);
+    /**
+     * Function to store the last listened show and episode in localStorage.
+     */
+    const storeLastListenedEpisode = (audioUrl: string, progress: number) => {
+        if (progress) {
+            localStorage.setItem('last_listened_url', audioUrl.toString());
+            localStorage.setItem('last_playback_position', progress.toString());
+        }
+    };
+    useEffect(() => {
+        storeLastListenedEpisode(audioUrl, progress);
+    }, [audioUrl, progress]);
+
     /**
      * <audio> element with controls, using the provided audioUrl.
      * Close button represented by an <img> element, which triggers the handleClose function when clicked.
@@ -176,10 +180,10 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
      * The audioUrl is used as the source for the audio element.
      */
     return (
-        <div className='flex items-center justify-between'>
+        <div className='flex items-center justify-between '>
 
             <div
-                className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 ">
+                className="fixed bottom-0 left-0 w-full bg-black rounded-3xl text-yellow-400 py-2 px-4 border border-purple-300">
                 <div className='flex items-center justify-between text-sm'>
                     <div className='flex items-center'>
                         <p className='text-gray-400 p-2'>Now Playing:</p> {episodeTitle}
