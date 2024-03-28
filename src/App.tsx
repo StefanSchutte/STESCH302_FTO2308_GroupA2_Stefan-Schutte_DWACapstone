@@ -14,7 +14,7 @@ import Show from "./pages/Show.tsx";
 
 /**
  * Main application component.
- * wraps the entire application with context providers (AuthContextProvider and AudioPlayerProvider).
+ * Wraps the entire application with context providers (AuthContextProvider and AudioPlayerProvider).
  * Make authentication and audio player functionality available throughout the component tree.
  * Routes component from React Router is used to define the routes of the application, mapping each route path to a corresponding component.
  * ProtectedRoute component is used for the '/account' route, ensuring that the Account component is only accessible to authenticated users.
