@@ -1,32 +1,35 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from "../../services/AuthContext.tsx";
 import supabase from "../../supabase.ts";
+import { useAudioPlayer } from "../../services/AudioPlayerContext.tsx";
 import { format } from 'date-fns'
 import removeFav from '/remove.png';
 import shareFav from '/share.png';
 import {FavoriteData, Podcast, PodcastFavorite} from "../../types.ts";
-import { useAudioPlayer } from "../../services/AudioPlayerContext.tsx";
 
 /**
- * Functional component representing the saved podcasts section.
- * Sets up a state variable favorites using the useState hook to manage the list of saved podcasts.
- * Retrieves the user object from the useAuth hook, which provides information about the authenticated user.
- * 'useState' hook is used to manage the component's state:
- * 'favorites': Stores the list of favorite podcasts.
- * 'selectedEpisode': Keeps track of the selected episode when clicked for further actions.
- * 'podcastData': Stores the data of the podcast fetched from the API.
- * 'loading': Indicates whether the component is in a loading state.
- * 'selectedEpisodeForAudio': Keeps track of the selected episode's audio file for audio playback.
- * 'shareUrl': Stores the URL generated for sharing a podcast episode.
+ * Favorites Functional component.
+ * Manages the display and interaction logic for the user's favorite podcasts.
+ * Retrieves favorite podcasts from the database, allows sorting and filtering,
+ * and provides functionality for sharing and removing favorites.
+ * Maps through the favorites array to display each saved podcast item.
+ * Each podcast item is displayed with its image and title.
+ * It provides a delete button for each podcast item, allowing users to remove it from their favorites.
+ * Sets up a state variable favorites using the 'useState' hook to manage the list of saved podcasts.
  */
 function Favorites(): JSX.Element {
+    /** Stores the list of favorite podcasts. */
     const [favorites, setFavorites] = useState<PodcastFavorite[]>([]);
+    /** Retrieves the user object from the useAuth hook, which provides information about the authenticated user. */
     const { user } = useAuth();
+    /** Keeps track of the selected episode when clicked for further actions. */
     const [selectedEpisode, setSelectedEpisode] = useState<PodcastFavorite | null>(null);
+    /** Stores the data of the podcast fetched from the API. */
     const [podcastData, setPodcastData] = useState<Podcast | null>(null);
-    //const [selectedEpisodeForAudio, setSelectedEpisodeForAudio] = useState<string | null>(null);
+    /** Stores the URL generated for sharing a podcast episode. */
     const [shareUrl, setShareUrl] = useState<string>('');
     const { setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
+
     /**
      * Fetch the user's favorite podcasts from the database whenever the user object changes.
      * This ensures that the component updates its state when the user logs in or out.
@@ -94,7 +97,7 @@ function Favorites(): JSX.Element {
 
     /**
      * Deletes a podcast from the user's favorites.
-     * Deletes podcast by calling the appropriate Supabase query.
+     * Calls the appropriate Supabase query to delete the podcast entry.
      */
     const deletePodcast = async (season_id: string) => {
         try {
@@ -163,54 +166,78 @@ function Favorites(): JSX.Element {
 
     /**
      * Filtering and grouping the list of favorite podcasts by their seasons.
-     * 'groupedBySeason' is initialized as an empty object.
-     * This object will hold the grouped episodes where the keys represent shows and seasons.
-     * 'map' function iterates over each episode in the 'favorites' array.
-     * Extracts the seasonKey and subSeasonKey based on the episode's properties:
-     * seasonKey: Represents the main show title(seasonKey).
-     * subSeasonKey: Represents the season title(sub-seasonKey).
-     * Checks if the groupedBySeason object already contains a key corresponding to the seasonKey. If not, it initializes an empty object for that key.
-     * Checks if the subSeasonKey exists within the nested object corresponding to the seasonKey. If not, it initializes an empty array for that key.
-     * Finally, it pushes the current episode into the array under the appropriate subSeasonKey.
-     * 'Object.values' method is used to extract the values (grouped episodes) from the groupedBySeason object.
-     * 'flatMap' is used to flatten the array of arrays into a single array.
-     * 'flat' is used to further flatten the array if there are sub-seasons within a season.
      */
     const filterAndGroupBySeason = () => {
+        /**
+         * 'groupedBySeason' is initialized as an empty object.
+         * This object hold the grouped episodes, where the keys represent shows and seasons.
+         */
         const groupedBySeason: { [key: string]: { [key: string]: PodcastFavorite[] } } = {};
-
+        /**
+         * 'map' function iterates over each episode in the 'favorites' array.
+         */
         favorites.map((episode, index) => {
+            /**
+             * Extracts the seasonKey and subSeasonKey based on the episode's properties:
+             * seasonKey: Represents the main show title(seasonKey).
+             * subSeasonKey: Represents the season title(sub-seasonKey).
+             */
             const seasonKey = episode.season_title;
             const subSeasonKey = episode.seasons_titles && episode.seasons_titles[index]?.title;
-
+            /**
+             * Checks if the groupedBySeason object already contains a key corresponding to the seasonKey.
+             * If not, it initializes an empty object for that key.
+             */
             if (!groupedBySeason[seasonKey]) {
                 groupedBySeason[seasonKey] = {};
             }
+            /**
+             * Checks if the subSeasonKey exists within the nested object corresponding to the seasonKey.
+             * If not, it initializes an empty array for that key.
+             */
             if (!groupedBySeason[seasonKey][subSeasonKey]) {
                 groupedBySeason[seasonKey][subSeasonKey] = [];
             }
+            /**
+             * Rushes the current episode into the array under the appropriate subSeasonKey.
+             */
             groupedBySeason[seasonKey][subSeasonKey].push(episode);
         });
+        /**
+         * 'Object.values' method is used to extract the values (grouped episodes) from the groupedBySeason object.
+         * 'flatMap' is used to flatten the array of arrays into a single array.
+         * 'flat' is used to further flatten the array if there are sub-seasons within a season.
+         */
         setFavorites(Object.values(groupedBySeason).flatMap(Object.values).flat());
     };
 
     /**
-     * Function to handle opening the audio player for the selected episode.
+     * Responsible for setting up the audio player to play the selected podcast episode when the user clicks on it within the Favorites component.
      * Set the selected episode ID for audio playback.
-     * Find the episode with the given ID.
      */
     const openAudioPlayer = (episodeId: string) => {
+        /**
+         * Search for the episode in the favorites array using episodeId.
+         */
         const selectedEpisode = favorites.find(episode => episode.id === episodeId);
+        /**
+         * If the episode is found (selectedEpisode is not undefined), the function proceeds to set up the audio player.
+         */
         if (selectedEpisode) {
-             //setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
+            /** Audio player component displayed. */
             setShowAudioPlayer(true);
+            /** Sets the audio URL for the selected episode. URL is obtained from the mp3_file property of the selected episode. */
             setAudioUrl(selectedEpisode.mp3_file);
+            /**
+             * Sets the state variables respectively.
+             * Holds the IDs of selected episode, show, titles, and season, which are necessary for managing playback state.
+             */
             setEpisodeId(parseInt(episodeId));
             setShowId(parseInt(selectedEpisode.season_id));
             setSeasonId(parseInt(selectedEpisode.season_id));
             setEpisodeTitle(selectedEpisode.title);
-            //setInitialTimestamp(0);
         } else {
+            /** If the episode is not found, error is logged. */
             console.error('Error: Episode not found with ID:', episodeId);
         }
     };
@@ -225,12 +252,6 @@ function Favorites(): JSX.Element {
         setShareUrl(url);
     };
 
-    /**
-     * Renders a section titled "Saved for Later" and maps through the favorites array to display each saved podcast item.
-     * Each podcast item is displayed with its image and title.
-     * It provides a delete button for each podcast item, allowing users to remove it from their favorites.
-     * The Show component is used to provide additional functionality for each podcast item, such as saving the episode.
-     */
     return (
         <>
             <div className='flex justify-center items-center text-yellow-400 mt-24'>
@@ -301,25 +322,11 @@ function Favorites(): JSX.Element {
                                 <button onClick={() => handleDeleteClick(episode.season_id)}>
                                     <img src={removeFav} alt='Remove' title='Remove' className='w-14 h-14 m-2 mt-3'/>
                                 </button>
-
                             </div>
                         </li>
                     ))}
                 </ul>
             </div>
-            {/*{selectedEpisodeForAudio && selectedEpisode && (*/}
-            {/*    <AudioPlayer*/}
-            {/*        audioUrl={selectedEpisode.mp3_file}*/}
-            {/*        onClose={() => setSelectedEpisodeForAudio(null)}*/}
-            {/*        userId={user?.id ?? ''}*/}
-            {/*        episodeId={parseInt(selectedEpisode.id)}*/}
-            {/*        showId={parseInt(selectedEpisode.season_id)}*/}
-            {/*        seasonId={parseInt(selectedEpisode.season_id)}*/}
-            {/*        episodeTitle={selectedEpisode.title}*/}
-            {/*        setShowAudioPlayer={() => {}}*/}
-            {/*        setAudioUrl={() => {}}*/}
-            {/*    />*/}
-            {/*)}*/}
         </>
     );
 }

@@ -10,6 +10,7 @@ import addUserFav from "/add-user.png";
 
 /**
  * Functional component representing the navigation bar.
+ * Contains navigation links and icons.
  */
 function Navbar(): JSX.Element {
 
@@ -47,10 +48,6 @@ function Navbar(): JSX.Element {
         }
     };
 
-    /**
-     * Navbar component.
-     * Contains navigation links and icons.
-     */
     return (
         <div className="flex items-center justify-between p-1 z-[80] w-full absolute brightness-20 bg-gray-700 rounded">
             <Link to="/">

@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useShows } from '../../services/ShowsContext.tsx';
 import Genres from "../../helpers/Genres.tsx";
-import {Podcast} from "../../types.ts";
 import Show from "../../pages/Show.tsx";
+import {Podcast} from "../../types.ts";
 
 /**
- * Functional component representing the hero section of the application.
+ * Functional component representing the Hero section of the application.
  * Sets up state variables using the useState hook:
  * 'podcast' state to hold the currently displayed podcast.
  * 'showOverlay' state to manage whether the overlay is visible or not.
@@ -65,7 +65,6 @@ function Hero(): JSX.Element {
     };
 
     return (
-
         <div className="flex">
             <div className="w-full h-[600px] relative cursor-pointer" onClick={handlePlayButtonClick}>
                 <div className="absolute w-full h-[600px] bg-gradient-to-r from-black"></div>
