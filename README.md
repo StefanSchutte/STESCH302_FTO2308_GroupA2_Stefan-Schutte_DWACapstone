@@ -276,11 +276,11 @@ Genre array IDs are assigned titles as follow:
 
 ✅ Audio player shows current progress and episode length as timestamps
 
- Audio player is always visible, so the user can listen to episodes while they browse
+✅ Audio player is always visible, so the user can listen to episodes while they browse
 
 ✅ User is prompted to confirm they want to close the page when audio is playing
 
-✅ App remembers which show and episode the user listened to last when returning to the platform
+ App remembers which show and episode the user listened to last when returning to the platform
 
 ✅ App remembers which shows and episodes the user listened to all the way through
 

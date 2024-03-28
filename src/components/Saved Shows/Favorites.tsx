@@ -206,14 +206,14 @@ function Favorites(): JSX.Element {
     const openAudioPlayer = (episodeId: string) => {
         const selectedEpisode = favorites.find(episode => episode.id === episodeId);
         if (selectedEpisode) {
-            // setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
+             setSelectedEpisodeForAudio(selectedEpisode.mp3_file);
             setShowAudioPlayer(true);
-            setAudioUrl(selectedEpisode.mp3_file);
+            //setAudioUrl(selectedEpisode.mp3_file);
             setEpisodeId(parseInt(episodeId));
             setShowId(parseInt(selectedEpisode.season_id));
             setSeasonId(parseInt(selectedEpisode.season_id));
             setEpisodeTitle(selectedEpisode.title);
-            setInitialTimestamp(0);
+            //setInitialTimestamp(0);
         } else {
             console.error('Error: Episode not found with ID:', episodeId);
         }
@@ -311,19 +311,19 @@ function Favorites(): JSX.Element {
                     ))}
                 </ul>
             </div>
-            {/*{selectedEpisodeForAudio && selectedEpisode && (*/}
-            {/*    <AudioPlayer*/}
-            {/*        audioUrl={selectedEpisode.mp3_file}*/}
-            {/*        onClose={() => setSelectedEpisodeForAudio(null)}*/}
-            {/*        userId={user?.id ?? ''}*/}
-            {/*        episodeId={parseInt(selectedEpisode.id)}*/}
-            {/*        showId={parseInt(selectedEpisode.season_id)}*/}
-            {/*        seasonId={parseInt(selectedEpisode.season_id)}*/}
-            {/*        episodeTitle={selectedEpisode.title}*/}
-            {/*        setShowAudioPlayer={() => {}}*/}
-            {/*        setAudioUrl={() => {}}*/}
-            {/*    />*/}
-            {/*)}*/}
+            {selectedEpisodeForAudio && selectedEpisode && (
+                <AudioPlayer
+                    audioUrl={selectedEpisode.mp3_file}
+                    onClose={() => setSelectedEpisodeForAudio(null)}
+                    userId={user?.id ?? ''}
+                    episodeId={parseInt(selectedEpisode.id)}
+                    showId={parseInt(selectedEpisode.season_id)}
+                    seasonId={parseInt(selectedEpisode.season_id)}
+                    episodeTitle={selectedEpisode.title}
+                    setShowAudioPlayer={() => {}}
+                    setAudioUrl={() => {}}
+                />
+            )}
         </>
     );
 }

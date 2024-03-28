@@ -9,7 +9,8 @@ import {Podcast} from '../types.ts'
 import seeMoreFav from '/seeMore.png';
 import saveBtnFav from "/save.png";
 import closeFav from "/close.png";
-//import AudioPlayer from "../components/audio/AudioPlayer.tsx";
+import AudioPlayer from "../components/audio/AudioPlayer.tsx";
+
 
 /**
  * Show component to display detailed information about a podcast.
@@ -68,7 +69,7 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
      * Integrate audio playback features into the component without passing props explicitly.
      */
         //const { showAudioPlayer, setShowAudioPlayer, setAudioUrl } = useAudioPlayer();
-    const { showAudioPlayer, setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle, initialTimestamp, setInitialTimestamp } = useAudioPlayer();
+    const { showAudioPlayer, setShowAudioPlayer, setAudioUrl, setEpisodeId, setShowId, setSeasonId, setEpisodeTitle } = useAudioPlayer();
     const [showSavedPopup, setShowSavedPopup] = useState(false);
     /**
      * Fetches podcast data from api and sets it in the state.
@@ -224,12 +225,15 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
             setAudioUrl(selectedEpisodeFile);
 
 
+
             setEpisodeId(selectedEpisodeId);
             setShowId(parseInt(selectedShowId));
             setSeasonId(selectedSeasonId);
             setEpisodeTitle(selectedEpisodeTitle);
             // Show the audio player automatically
             setShowAudioPlayer(true);
+
+
         }
     };
 
@@ -437,19 +441,19 @@ const Show: React.FC<any> = ({ item, showOverlay, closeOverlay}) => {
                                                 )}
                                             </div>
                                         </div>
-                                        {/*{showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&*/}
-                                        {/*    <AudioPlayer*/}
-                                        {/*        audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}*/}
-                                        {/*        showId={parseInt(item.id)}*/}
-                                        {/*        episodeId={selectedEpisode}*/}
-                                        {/*        seasonId={selectedSeason}*/}
-                                        {/*        setShowAudioPlayer={setShowAudioPlayer}*/}
-                                        {/*        setAudioUrl={setAudioUrl}*/}
-                                        {/*        episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}*/}
-                                        {/*        userId={user ? user.id : ''}*/}
-                                        {/*        onClose={() => setShowAudioPlayer(false)}*/}
-                                        {/*    />*/}
-                                        {/*}*/}
+                                        {showOverlay &&  selectedSeason && selectedEpisode && showAudioPlayer &&
+                                            <AudioPlayer
+                                                audioUrl={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.file}
+                                                showId={parseInt(item.id)}
+                                                episodeId={selectedEpisode}
+                                                seasonId={selectedSeason}
+                                                setShowAudioPlayer={setShowAudioPlayer}
+                                                setAudioUrl={setAudioUrl}
+                                                episodeTitle={podcastData.seasons[selectedSeason - 1]?.episodes[selectedEpisode - 1]?.title}
+                                                userId={user ? user.id : ''}
+                                                onClose={() => setShowAudioPlayer(false)}
+                                            />
+                                        }
                                     </div>
                                 )
                             )}

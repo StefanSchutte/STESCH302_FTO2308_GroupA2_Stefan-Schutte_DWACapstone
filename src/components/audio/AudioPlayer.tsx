@@ -15,7 +15,7 @@ interface AudioPlayerProps {
     episodeTitle: string;
     setShowAudioPlayer: (show: boolean) => void;
     setAudioUrl: (url: string) => void;
-    initialTimestamp: number | null;
+    // initialTimestamp: number | null;
 
 }
 
@@ -65,13 +65,25 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
             }
         }
 
-
         const storedCompletionStatus = localStorage.getItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_completed`);
         if (storedCompletionStatus === 'true') {
             setIsEpisodeCompleted(true);
         }
-        storeLastListenedEpisode(audioUrl, progress);
     }, [episodeId, seasonId, showId, userId]);
+
+    /**
+     * Called when the <audio> element emits the onTimeUpdate event, indicating that the playback progress has changed.
+     * Updates the progress state with the current playback time obtained from the <audio> element.
+     * Stores the current playback time in the local storage, associating it with the current user, show, season, and episode IDs.
+     * Allows the application to remember the playback progress of the episode even if the user navigates away from the page.
+     */
+    const handleProgressUpdate = () => {
+        if (audioRef.current) {
+            const currentTime = audioRef.current.currentTime;
+            setProgress(currentTime);
+            localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_progress`, currentTime.toString());
+        }
+    };
 
     /**
      * Mark the current episode as completed.
@@ -82,28 +94,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         setIsEpisodeCompleted(true);
         localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_completed`, 'true');
     };
-
-    /**
-     * Manage the visibility of the audio player component within the application.
-     * Triggered when the user attempts to close the audio player.
-     * Confirmation prompt, asking if they are sure they want to close the audio player.
-     * Handles closing the audio player component or updating its visibility.
-     * Sets 'showAudioPlayer' state to false using the 'setShowAudioPlayer 'function obtained from the useAudioPlayer hook.
-     */
-    const handleClose = () => {
-        const confirmPrompt = window.confirm('Are you sure you want to close the Audio Player?');
-        if (confirmPrompt) {
-            onClose();
-            setShowAudioPlayer(false)
-        }
-    };
-
-//
-    // useEffect(() => {
-    //     if (audioRef.current && initialTimestamp !== null) {
-    //         audioRef.current.currentTime = initialTimestamp;
-    //     }
-    // }, [initialTimestamp]);
 
     /**
      * Called when the audio playback ends.
@@ -150,33 +140,35 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         window.location.reload();
     };
 
+
     /**
-     * Called when the <audio> element emits the onTimeUpdate event, indicating that the playback progress has changed.
-     * Updates the progress state with the current playback time obtained from the <audio> element.
-     * Stores the current playback time in the local storage, associating it with the current user, show, season, and episode IDs.
-     * Allows the application to remember the playback progress of the episode even if the user navigates away from the page.
+     * Manage the visibility of the audio player component within the application.
+     * Triggered when the user attempts to close the audio player.
+     * Confirmation prompt, asking if they are sure they want to close the audio player.
+     * Handles closing the audio player component or updating its visibility.
+     * Sets 'showAudioPlayer' state to false using the 'setShowAudioPlayer 'function obtained from the useAudioPlayer hook.
      */
-    const handleProgressUpdate = () => {
-        if (audioRef.current) {
-            const currentTime = audioRef.current.currentTime;
-            setProgress(currentTime);
-            localStorage.setItem(`${userId}-${showId}_season_${seasonId}_episode_${episodeId}_progress`, currentTime.toString());
+    const handleClose = () => {
+        const confirmPrompt = window.confirm('Are you sure you want to close the Audio Player?');
+        if (confirmPrompt) {
+            onClose();
+            setShowAudioPlayer(false)
         }
     };
 
-    /**
-     * Function to store the last listened show and episode in localStorage.
-     */
-    const storeLastListenedEpisode = (audioUrl: string, progress: number) => {
-        if (progress) {
-            console.log("Storing last listened episode:", audioUrl);
-            localStorage.setItem('last_listened_url', audioUrl.toString());
-            localStorage.setItem('last_playback_position', progress.toString());
-        }
-    };
-    useEffect(() => {
-        storeLastListenedEpisode(audioUrl, progress);
-    }, [audioUrl, progress]);
+    // /**
+    //  * Function to store the last listened show and episode in localStorage.
+    //  */
+    // const storeLastListenedEpisode = (audioUrl: string, progress: number) => {
+    //     if (progress) {
+    //         console.log("Storing last listened episode:", audioUrl);
+    //         localStorage.setItem('last_listened_url', audioUrl.toString());
+    //         localStorage.setItem('last_playback_position', progress.toString());
+    //     }
+    // };
+    // useEffect(() => {
+    //     storeLastListenedEpisode(audioUrl, progress);
+    // }, [audioUrl, progress]);
     /**
      * <audio> element with controls, using the provided audioUrl.
      * Close button represented by an <img> element, which triggers the handleClose function when clicked.

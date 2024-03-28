@@ -11,7 +11,6 @@ import {AudioPlayerProvider, useAudioPlayer} from "./services/AudioPlayerContext
 import SharedFavorites from "./components/Saved Shows/SharedFavorites.tsx";
 import AudioPlayer from "./components/audio/AudioPlayer.tsx";
 import Show from "./pages/Show.tsx";
-import {useEffect, useState} from "react";
 
 /**
  * Main application component.
@@ -21,22 +20,7 @@ import {useEffect, useState} from "react";
  * ProtectedRoute component is used for the '/account' route, ensuring that the Account component is only accessible to authenticated users.
  */
 function App(): JSX.Element {
-    const { setShowAudioPlayer } = useAudioPlayer();
-    const [lastListenedEpisode, setLastListenedEpisode] = useState<{
-        audioUrl: string;
-        progress: number;
-    } | null>(null);
 
-    // useEffect(() => {
-    //     const lastListenedUrl = localStorage.getItem('last_listened_url');
-    //     const lastPlaybackPosition = localStorage.getItem('last_playback_position');
-    //
-    //     if (lastListenedUrl && lastPlaybackPosition) {
-    //         const progress = parseFloat(lastPlaybackPosition);
-    //         setLastListenedEpisode({ audioUrl: lastListenedUrl, progress });
-    //         setShowAudioPlayer(true);
-    //     }
-    // }, [setShowAudioPlayer]);
     return (
           <>
               <AuthContextProvider>
@@ -52,8 +36,8 @@ function App(): JSX.Element {
                           <Route path="/show/:id" element={<Show />} />
                       </Routes>
 
-                      <AudioPlayerComponent />
-                      {/*<LastListenedEpisodeManager />*/}
+                      {/*<AudioPlayerComponent />*/}
+
                   </AudioPlayerProvider>
               </AuthContextProvider>
           </>
@@ -69,7 +53,6 @@ function App(): JSX.Element {
 const AudioPlayerComponent = () => {
     const { showAudioPlayer, setShowAudioPlayer, audioUrl, userId, episodeId, showId, seasonId, episodeTitle } = useAudioPlayer();
 
-
     return showAudioPlayer ? (
         <AudioPlayer
             audioUrl={audioUrl}
@@ -81,6 +64,7 @@ const AudioPlayerComponent = () => {
             userId={userId}
             setShowAudioPlayer={setShowAudioPlayer}
             setAudioUrl={() => {}}
+
         />
     ) : null;
 };
