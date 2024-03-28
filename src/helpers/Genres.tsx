@@ -1,16 +1,12 @@
 import React from 'react';
 
-/**
- * Props interface for the Genres component.
- */
 interface GenresProps {
-    //genres: string[];
     genres: (string )[];
 }
 
 /**
  * Component to render genres based on their IDs.
- * Mapping genre IDs to genre titles
+ * Mapping genre IDs to genre titles.
  */
 const Genres: React.FC<GenresProps> = ({ genres }) => {
 
