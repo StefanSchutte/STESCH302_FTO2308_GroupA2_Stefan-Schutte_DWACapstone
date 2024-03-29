@@ -55,7 +55,7 @@ export interface FavoriteData {
     season_image: string;
     date_saved: string;
     mp3_file: string;
-    seasons_titles: SeasonTitle[]; // Assuming SeasonTitle is another type you've defined
+    seasons_titles: SeasonTitle[];
 }
 
 /**

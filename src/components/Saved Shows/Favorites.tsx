@@ -235,7 +235,7 @@ function Favorites(): JSX.Element {
             setEpisodeId(parseInt(episodeId));
             setShowId(parseInt(selectedEpisode.season_id));
             setSeasonId(parseInt(selectedEpisode.season_id));
-            setEpisodeTitle(selectedEpisode.title);
+            setEpisodeTitle(selectedEpisode.episode_title);
         } else {
             /** If the episode is not found, error is logged. */
             console.error('Error: Episode not found with ID:', episodeId);

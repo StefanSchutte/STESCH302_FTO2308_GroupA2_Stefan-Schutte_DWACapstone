@@ -166,18 +166,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     };
 
     /**
-     * Function to store the last listened episode in localStorage.
+     * Function to store the last listened episode and progress in localStorage.
      */
-    const storeLastListenedEpisode = (audioUrl: string, progress: number) => {
-        if (progress) {
-            localStorage.setItem('last_listened_url', audioUrl.toString());
-            localStorage.setItem('last_playback_position', progress.toString());
-        }
+    const storeLastListenedEpisode = (progress: number, audioUrl: string) => {
+            localStorage.setItem(
+                `${userId}-${showId}_season_${seasonId}_episode_${episodeTitle}_lastListened_progress`,
+                progress.toString()
+            );
+            localStorage.setItem('last_listened_url', audioUrl)
     };
 
     useEffect(() => {
-        storeLastListenedEpisode(audioUrl, progress);
-    }, [audioUrl, progress]);
+        storeLastListenedEpisode(progress, audioUrl);
+    }, [userId, showId, seasonId, episodeTitle, progress, audioUrl]);
 
     return (
         <div className='flex items-center justify-between '>

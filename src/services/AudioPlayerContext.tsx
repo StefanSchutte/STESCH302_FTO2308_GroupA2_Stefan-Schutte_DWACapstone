@@ -51,6 +51,8 @@ export const AudioPlayerProvider: React.FC<AudioPlayerProviderProps> = ({ childr
     const [seasonId, setSeasonId] = useState<number | null>(null);
     const [episodeTitle, setEpisodeTitle] = useState<string | null>(null);
 
+
+
     /**
      * Function to toggle the audio player visibility.
      * Flips the value of showAudioPlayer.

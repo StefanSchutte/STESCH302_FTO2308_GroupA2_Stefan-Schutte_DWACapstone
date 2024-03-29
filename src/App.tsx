@@ -49,7 +49,7 @@ function App(): JSX.Element {
  * It renders the AudioPlayer component with the provided audioUrl and an onClose callback to toggle the showAudioPlayer state to false.
  */
 const AudioPlayerComponent = () => {
-    const { showAudioPlayer, setShowAudioPlayer, audioUrl, userId, episodeId, showId, seasonId, episodeTitle, setAudioUrl } = useAudioPlayer();
+    const { showAudioPlayer, setShowAudioPlayer, audioUrl, userId, episodeId, showId, seasonId, episodeTitle, setAudioUrl} = useAudioPlayer();
 
     return showAudioPlayer ? (
         <AudioPlayer
