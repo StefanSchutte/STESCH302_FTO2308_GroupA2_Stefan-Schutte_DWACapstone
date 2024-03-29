@@ -24,7 +24,6 @@ export const AuthContextProvider: React.FC<AuthContextProviderProps> = ({ childr
      * Listens for changes in the authentication state (user authentication status) and updates the user state accordingly.
      */
     useEffect(() => {
-        // This effect sets the user on mount and listens for auth state changes.
         const { data: { subscription, } } = supabase.auth.onAuthStateChange((_event, session) => {
             setUser(session?.user ?? null);
         });
