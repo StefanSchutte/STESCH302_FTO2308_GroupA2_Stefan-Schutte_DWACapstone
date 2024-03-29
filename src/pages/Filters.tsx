@@ -185,7 +185,7 @@ const Filters: React.FC = () => {
                                         <div className=" col-span-1 aspect-w-1 aspect-h-1 mb-2">
                                             <img src={show.image} alt={show.title} className=" object-cover w-40 h-40"/>
                                         </div>
-                                        <div className="col-span-2 flex flex-col justify-between">
+                                        <div className="col-span-2 flex flex-col justify-between ml-1">
                                             <div className='text-sm md:text-base lg:text-lg xl:text-xl'>
                                             <div className="flex items-center font-bold">
                                                 <h1 className='text-amber-50 pr-4'>Title:</h1>
